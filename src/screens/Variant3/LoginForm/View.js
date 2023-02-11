@@ -17,7 +17,7 @@ import {
   getUserByPhone,
   addUser,
   loginWithOtp,
-} from '../../../api-client/user_services';
+} from '../../../services/user_services';
 import Toast from 'react-native-toast-message';
 const assets = AppConfig.assets.default;
 const lightColors = AppConfig.lightColors.default;

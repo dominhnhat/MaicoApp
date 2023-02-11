@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -26,13 +26,16 @@ import {useTheme} from '@react-navigation/native';
 import IconNames from '../../../branding/carter/assets/IconNames';
 import {SvgIcon} from '../../components/Application/SvgIcon/View';
 import {FocusAwareStatusBar} from '../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {addCartItem} from '../../services/cart_services';
+import Toast from 'react-native-toast-message';
 export const ProductDetail = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
   const {colors} = useTheme();
   const screenStyles = Styles(scheme, colors);
-
+  const [cartItem, setCartItem] = useState({});
+  const [profile, setProfile] = useState({});
   //Internal states
   const [isFavourite, setIsFavourite] = useState(
     props.route.params.item.isFavourite,
@@ -43,7 +46,45 @@ export const ProductDetail = props => {
 
   //Props
   const {item} = props.route.params;
-
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    console.log(item);
+    getProfile();
+  });
+  const getProfile = async () => {
+    let jsonValue = await AsyncStorage.getItem('@user');
+    if (jsonValue) {
+      jsonValue = JSON.parse(jsonValue);
+      if (jsonValue) {
+        if (JSON.stringify(profile) !== JSON.stringify(jsonValue)) {
+          setProfile(jsonValue);
+        }
+      }
+    }
+  };
+  const addItem = async () => {
+    if (count > 0) {
+      setLoading(true);
+      const userid = profile.id;
+      const prodid = item.id;
+      const newCartItem = await addCartItem({
+        user_id: userid,
+        product_id: prodid,
+        quantity: count,
+      });
+      if (!newCartItem.error) {
+        setLoading(false);
+        Toast.show({
+          type: 'success',
+          text1: 'Thành công',
+          text2: 'Thêm sản phẩm vào giỏ hàng'
+        });
+      }
+    } else {
+      console.warn('Vui lòng thêm số lượng sản phẩm');
+    }
+  };
   return (
     <View style={screenStyles.container}>
       <FocusAwareStatusBar
@@ -67,13 +108,12 @@ export const ProductDetail = props => {
           title={' '}
         />
       </View>
-
       <View style={screenStyles.bottomContainerMain}>
         <View style={screenStyles.bottomContainerUpper}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={screenStyles.infoContainer}>
               <Text style={screenStyles.priceText}>{item.price}</Text>
-              <View style={screenStyles.favouriteContainer}>
+              {/* <View style={screenStyles.favouriteContainer}>
                 <TouchableOpacity
                   onPress={() => {
                     setIsFavourite(isFavourite => {
@@ -90,7 +130,7 @@ export const ProductDetail = props => {
                     color={isFavourite ? colors.heartFilled : colors.heartEmpty}
                   />
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
 
             <Text style={screenStyles.nameText}>{item.title}</Text>
@@ -138,10 +178,16 @@ export const ProductDetail = props => {
         <View style={screenStyles.bottomContainerLower}>
           <View style={screenStyles.cartCounterContainer}>
             <Text style={screenStyles.cartCounterText}>QUANTITY</Text>
-            <Counter />
+            <Counter setCount={setCount} />
           </View>
 
-          <AppButton title={'Add to Cart'} onPress={() => {}} />
+          <AppButton
+            title={'Add to Cart'}
+            onPress={() => {
+              addItem();
+            }}
+            loading={loading}
+          />
         </View>
       </View>
 

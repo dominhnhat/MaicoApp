@@ -289,6 +289,7 @@ export const Variant3Home = props => {
           }}
           renderItem={({item}) => (
             <FoodItem
+              id={item.id}
               title={item.title}
               image={item.image}
               bigImage={item.bigImage}
