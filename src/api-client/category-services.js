@@ -18,7 +18,7 @@ async function getAllCategory() {
         bgURI: c.background,
       };
     });
-    console.log(result)
+    // console.log(result)
     return result;
   } catch (error) {
     throw error;

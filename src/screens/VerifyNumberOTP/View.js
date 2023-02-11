@@ -8,17 +8,48 @@ import {commonDarkStyles} from '../../../branding/carter/styles/dark/Style';
 import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
 import OtpInputs from 'react-native-otp-inputs';
 import {FocusAwareStatusBar} from '../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
-
+import Routes from '../../navigation/Routes';
+import {
+  verifyOtp,
+  getUserByPhone,
+  loginWithOtp,
+} from '../../api-client/user_services';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 export const VerifyPhoneOTP = props => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
-
   //Theme based styling and colors
   const scheme = useColorScheme();
   const {colors} = useTheme();
   const globalStyles =
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
   const screenStyles = Styles(globalStyles, colors);
-
+  const Verify = async otp => {
+    if (otp && otp.length == 6) {
+      const formatPhone = '+84' + props.route.params.phone.replace('0', '');
+      const res = await verifyOtp(formatPhone, otp);
+      if (!res.error) {
+        await getUser();
+      }
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'Lỗi',
+        text2: 'Vui lòng xác nhận lại mã OTP',
+      });
+    }
+  };
+  const getUser = async () => {
+    const queryData = await getUserByPhone(props.route.params.phone);
+    if (queryData && queryData.length > 0) {
+      try {
+        await AsyncStorage.setItem('@user', JSON.stringify(queryData[0]));
+      } catch (e) {
+        // saving error
+      }
+      props.navigation.navigate(Routes.HOME_VARIANT3);
+    }
+  };
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -70,7 +101,7 @@ export const VerifyPhoneOTP = props => {
             blurOnSubmit={false}
             handleChange={code => {
               if (code.length === 6) {
-                props.navigation.dispatch(StackActions.pop(2));
+                Verify(code);
               }
             }}
             numberOfInputs={6}
@@ -83,7 +114,15 @@ export const VerifyPhoneOTP = props => {
           <Text style={screenStyles.didntReceivedText}>
             {"Didn't receive the code?"}
           </Text>
-          <Text style={screenStyles.resendText}>{'Resend a new Code.'}</Text>
+          <Text
+            style={screenStyles.resendText}
+            onPress={async () => {
+              await loginWithOtp(
+                '+84' + props.route.params.phone.replace('0', ''),
+              );
+            }}>
+            {'Resend a new Code.'}
+          </Text>
         </View>
         {/*</ScrollView>*/}
       </View>

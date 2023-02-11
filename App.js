@@ -8,7 +8,7 @@ import {
 import Globals from './src/utils/Globals';
 import {useColorScheme} from 'react-native';
 import AppConfig from './branding/App_config';
-
+import Toast from 'react-native-toast-message';
 const lightColors = AppConfig.lightColors.default;
 const darkColors = AppConfig.darkColors.default;
 
@@ -26,16 +26,19 @@ export const App = props => {
   const scheme = useColorScheme();
 
   return (
-    <NavigationContainer theme={scheme === 'dark' ? DarkTheme : LightTheme}>
-      <SafeAreaProvider>
-        <SafeAreaConsumer>
-          {insets => {
-            Globals.SAFE_AREA_INSET = insets;
+    <>
+      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : LightTheme}>
+        <SafeAreaProvider>
+          <SafeAreaConsumer>
+            {insets => {
+              Globals.SAFE_AREA_INSET = insets;
 
-            return <RootStack />;
-          }}
-        </SafeAreaConsumer>
-      </SafeAreaProvider>
-    </NavigationContainer>
+              return <RootStack />;
+            }}
+          </SafeAreaConsumer>
+        </SafeAreaProvider>
+      </NavigationContainer>
+      <Toast />
+    </>
   );
 };

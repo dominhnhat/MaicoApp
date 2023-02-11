@@ -13,7 +13,12 @@ import AppButton from '../../../components/Application/AppButton/View';
 import {commonLightStyles} from '../../../../branding/carter/styles/light/Style';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
-
+import {
+  getUserByPhone,
+  addUser,
+  loginWithOtp,
+} from '../../../api-client/user_services';
+import Toast from 'react-native-toast-message';
 const assets = AppConfig.assets.default;
 const lightColors = AppConfig.lightColors.default;
 
@@ -22,14 +27,37 @@ export const Variant3LoginFormScreen = props => {
   const {colors} = useTheme();
   const globalStyles = commonLightStyles(colors);
   const screenStyles = Styles(globalStyles, colors, lightColors);
-
   //Internal States
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [phone, setPhone] = useState('');
+  const [loading, setLoad] = useState(false);
   //References
   let inputRef = useRef();
-
+  const Login = async () => {
+    if (phone && phone.length == 10) {
+      setLoad(true);
+      const users = await getUserByPhone(phone);
+      if (users && users.length == 0) {
+        const newUser = await addUser({phone: phone});
+      }
+      const formatPhone = '+84' + phone.replace('0', '');
+      await loginWithOtp(formatPhone);
+      setLoad(false);
+      props.navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {name: Routes.VERIFY_NUMBER_OTP_SCREEN, params: {phone: phone}},
+          ],
+        }),
+      );
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'Bạn vừa nhập',
+        text2: ' số điện thoại không hợp lệ',
+      });
+    }
+  };
   return (
     <ImageBackground
       source={assets.login_form_header3}
@@ -69,77 +97,21 @@ export const Variant3LoginFormScreen = props => {
               <AppInput
                 {...globalStyles.secondaryInputStyle}
                 textInputRef={r => (inputRef = r)}
-                leftIcon={IconNames.Envelope}
-                placeholder={'Email Address'}
-                value={email}
-                keyboardType={'email-address'}
-                onChangeText={email => {
-                  setEmail(email);
+                leftIcon={IconNames.PhoneFlip}
+                placeholder={'Số điện thoại'}
+                value={phone}
+                onChangeText={phone => {
+                  setPhone(phone);
                 }}
               />
-
-              <AppInput
-                {...globalStyles.secondaryInputStyle}
-                textInputRef={r => (inputRef = r)}
-                isPasswordField
-                leftIcon={IconNames.LockKeyhole}
-                placeholder={'Password'}
-                value={password}
-                onChangeText={password => {
-                  setPassword(password);
-                }}
-              />
-
-              <View style={screenStyles.forgotPasswordContainer}>
-                <View style={screenStyles.switchContainer}>
-                  <CustomSwitch
-                    initialValue={false}
-                    onValueChange={value => {}}
-                  />
-                </View>
-
-                <Text style={screenStyles.accountText}>{'Remember me'}</Text>
-
-                <View style={screenStyles.bottomButtonContainer}>
-                  <Button
-                    title={'Forgot Password'}
-                    type={'clear'}
-                    containerStyle={{}}
-                    titleStyle={screenStyles.forgotPasswordButton}
-                    onPress={() =>
-                      props.navigation.navigate(
-                        Routes.FORGOT_PASSWORD_FORM_SCREEN3,
-                      )
-                    }
-                  />
-                </View>
-              </View>
 
               <AppButton
                 title={'Login'}
-                onPress={() => {
-                  props.navigation.dispatch(
-                    CommonActions.reset({
-                      index: 1,
-                      routes: [{name: Routes.HOME_VARIANT3}],
-                    }),
-                  );
+                loading={loading}
+                onPress={async () => {
+                  await Login();
                 }}
               />
-
-              <View style={screenStyles.accountBottomContainer}>
-                <Text style={screenStyles.accountText}>
-                  {"Don't have an account?"}
-                </Text>
-                <Button
-                  title={'Signup'}
-                  type={'clear'}
-                  titleStyle={screenStyles.signupButton}
-                  onPress={() =>
-                    props.navigation.navigate(Routes.SIGNUP_FORM_SCREEN3)
-                  }
-                />
-              </View>
             </View>
           </View>
         </View>

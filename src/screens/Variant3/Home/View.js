@@ -27,7 +27,7 @@ import {SvgIcon} from '../../../components/Application/SvgIcon/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
 import {getAllCategory} from '../../../api-client/category-services';
-import { CategoryItems } from '../../CategoryItems/View';
+import {CategoryItems} from '../../CategoryItems/View';
 
 //Constants
 const slider_data = [
@@ -67,7 +67,7 @@ export const Variant3Home = props => {
       console.log({category: c});
     });
   }, []);
-  console.log({category: categoryItems});
+  // console.log({category: categoryItems});
   //References
   const _carousel = useRef();
   let _favouriteSheet = useRef();

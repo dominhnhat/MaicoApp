@@ -69,7 +69,7 @@ const Tab = createBottomTabNavigator();
 export function RootStack() {
   return (
     <Stack.Navigator
-      initialRouteName={Config.SELECTED_VARIANT}
+      // initialRouteName={Config.SELECTED_VARIANT}
       headerMode={'none'}
       screenOptions={{
         ...(Platform.OS === 'android' && TransitionPresets.SlideFromRightIOS),
