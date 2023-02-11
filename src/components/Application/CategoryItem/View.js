@@ -23,12 +23,11 @@ export const CategoryItem = props => {
     iconURI,
     bgURI,
   } = props;
-  console.log(props);
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         props.navigation.navigate(Routes.CATEGORY_ITEMS, {
-          category: primaryTitle,
+          categoryName: primaryTitle,
           categoryId: categoryId,
         });
       }}>

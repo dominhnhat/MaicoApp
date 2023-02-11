@@ -1,22 +1,31 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, View} from 'react-native';
 import {FoodItem} from '../../components/Application/FoodItem/View';
 import BaseView from '../BaseView';
 import Globals from '../../utils/Globals';
 import style from './Style';
+import {getAllProductByCategoryId} from '../../services/product-services';
 
 export const CategoryItems = props => {
+  const {categoryId, categoryName} = props.route.params;
+  const [foodItems, setfoodItems] = useState([]);
+
+  useEffect(() => {
+    getAllProductByCategoryId(categoryId).then(c => {
+      setfoodItems(c);
+    });
+  }, [categoryId]);
   return (
     <BaseView
       navigation={props.navigation}
-      title={props.route.params.category}
+      title={categoryName}
       headerWithBack
       applyBottomSafeArea
       childView={() => {
         return (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={Globals.foodItems}
+            data={foodItems}
             numColumns={2}
             keyExtractor={(item, index) => {
               return item.id;
@@ -42,7 +51,7 @@ export const CategoryItems = props => {
                     />
                   </View>
                 );
-              } else if (index === Globals.foodItems.length - 1) {
+              } else if (index === foodItems.length - 1) {
                 return (
                   <View style={style.foodLastItem}>
                     <FoodItem
