@@ -26,7 +26,8 @@ import {commonLightStyles} from '../../../../branding/carter/styles/light/Style'
 import {SvgIcon} from '../../../components/Application/SvgIcon/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
-import {getAllCategory} from '../../../api-client/category-services';
+import {getAllCategory} from '../../../services/category-services';
+import {getAllProduct} from '../../../services/product-services';
 import {CategoryItems} from '../../CategoryItems/View';
 
 //Constants
@@ -60,11 +61,14 @@ export const Variant3Home = props => {
   );
 
   const [categoryItems, setCategoryItems] = useState([]);
+  const [foodItems, setfoodItems] = useState([]);
 
   useEffect(() => {
     getAllCategory().then(c => {
       setCategoryItems(c);
-      console.log({category: c});
+    });
+    getAllProduct().then(c => {
+      setfoodItems(c);
     });
   }, []);
   // console.log({category: categoryItems});
@@ -82,7 +86,7 @@ export const Variant3Home = props => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  props.navigation.navigate(Routes.POPULAR_DEALS);
+                  // props.navigation.navigate(Routes.POPULAR_DEALS);
                 }}>
                 <Image
                   source={item.img}
@@ -123,14 +127,18 @@ export const Variant3Home = props => {
         barStyle="dark-content"
       />
 
-      <View style={screenStyles.mainContainer}>
+      <View
+        style={[
+          screenStyles.mainContainer,
+          {marginTop: Globals.SAFE_AREA_INSET.top},
+        ]}>
         {/* <SearchButton
           onPress={() => props.navigation.navigate(Routes.SEARCH)}
         /> */}
 
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={Globals.foodItems}
+          data={foodItems}
           numColumns={2}
           keyExtractor={(item, index) => {
             return item.id;
@@ -215,7 +223,9 @@ export const Variant3Home = props => {
 
                 <TouchableOpacity
                   onPress={() => {
-                    props.navigation.navigate(Routes.CATEGORY_LIST);
+                    props.navigation.navigate(Routes.CATEGORY_LIST, {
+                      categoryItems: categoryItems,
+                    });
                   }}>
                   <View style={screenStyles.sectionHeading}>
                     <Text style={screenStyles.sectionHeadingText}>

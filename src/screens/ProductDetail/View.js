@@ -54,7 +54,7 @@ export const ProductDetail = props => {
 
       <View style={screenStyles.imageContainer}>
         <Image
-          source={item.bigImage}
+          source={{uri: item.bigImage}}
           resizeMode={'contain'}
           style={screenStyles.mainImage}
         />
@@ -96,7 +96,7 @@ export const ProductDetail = props => {
             <Text style={screenStyles.nameText}>{item.title}</Text>
             <Text style={screenStyles.weightText}>{item.weight}</Text>
 
-            <TouchableWithoutFeedback
+            {/* <TouchableWithoutFeedback
               onPress={() => {
                 props.navigation.navigate(Routes.REVIEW_LIST);
               }}>
@@ -121,7 +121,7 @@ export const ProductDetail = props => {
                   <Text style={screenStyles.reviewText}>]</Text>
                 </View>
               </View>
-            </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback> */}
 
             <ReadMore
               seeMoreText={'more'}

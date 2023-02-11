@@ -89,7 +89,7 @@ export const FoodItem = props => {
             });
           }}>
           <View style={[itemStyles.mainContainer]}>
-            <Image source={image} style={itemStyles.foodItemImage} />
+            <Image source={{uri: image}} style={itemStyles.foodItemImage} />
             <View style={itemStyles.infoContainer}>
               <Text style={itemStyles.priceText}>{price}</Text>
               <Text style={itemStyles.titleText}>{title}</Text>
@@ -99,7 +99,11 @@ export const FoodItem = props => {
             <View style={itemStyles.bottomContainer}>
               {cartCount === 0 ? (
                 <TouchableOpacity
-                  onPress={() => _cartCountChange('add')}
+                  onPress={() => {
+                    navigation.navigate(Routes.PRODUCT_DETAIL, {
+                      item: props,
+                    });
+                  }}
                   style={itemStyles.addToCartContainer}>
                   <SvgIcon
                     type={IconNames.BagShopping}
