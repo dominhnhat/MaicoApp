@@ -32,5 +32,5 @@ export const SplashScreen = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <View style={{flex: 1, backgroundColor: 'green'}} />;
+  return <View style={{flex: 1, backgroundColor: 'white'}} />;
 };

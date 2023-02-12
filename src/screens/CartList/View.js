@@ -28,7 +28,6 @@ export const CartList = props => {
   useEffect(() => {
     getProfile();
     getCartItem();
-    makeTotal(cartItems);
   });
   const getProfile = async () => {
     let jsonValue = await AsyncStorage.getItem('@user');
@@ -46,6 +45,7 @@ export const CartList = props => {
     if (queryData) {
       if (JSON.stringify(queryData) !== JSON.stringify(cartItems)) {
         setCartItems(queryData);
+        await makeTotal(cartItems);
       }
     }
   };
@@ -91,8 +91,7 @@ export const CartList = props => {
                         cartCount={item.cartCount}
                         cartCountChange={async count => {
                           await updateCartItem({id: item.id, quantity: count});
-                          // await getCartItem();
-                          // await makeTotal();
+                          await getCartItem();
                         }}
                         navigation={props.navigation}
                       />
@@ -110,8 +109,7 @@ export const CartList = props => {
                         cartCount={item.cartCount}
                         cartCountChange={async count => {
                           await updateCartItem({id: item.id, quantity: count});
-                          // await getCartItem();
-                          // await makeTotal();
+                          await getCartItem();
                         }}
                         navigation={props.navigation}
                       />
@@ -126,10 +124,9 @@ export const CartList = props => {
                       weight={item.weight}
                       discount={item.discount}
                       cartCount={item.cartCount}
-                      cartCountChange={count => {
-                        updateCartItem({id: item.id, quantity: count});
-                        // await getCartItem();
-                        // await makeTotal();
+                      cartCountChange={async count => {
+                        await updateCartItem({id: item.id, quantity: count});
+                        await getCartItem();
                       }}
                       navigation={props.navigation}
                     />
