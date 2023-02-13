@@ -7,6 +7,8 @@ import {useTheme} from '@react-navigation/native';
 import AppInput from '../AppInput/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 import {CustomSwitch} from '../../Global/CustomSwitch/View';
+import AppButton from '../AppButton/View';
+import {updateAddress} from '../../../services/user-address-services';
 
 export const AddressContentItem = props => {
   //References
@@ -19,10 +21,14 @@ export const AddressContentItem = props => {
 
   //Internal states
   const [name, setName] = useState(props.data.name);
-  const [address, setAddress] = useState(props.data.address);
+  const [street, setStreet] = useState(props.data.street);
   const [city, setCity] = useState(props.data.city);
-  const [zipCode, setZipCode] = useState(props.data.postalCode);
-  const [country, setCountry] = useState(props.data.state);
+  // const [district, setdistrict] = useState(props.data.district);
+  const [ward, setWard] = useState(props.data.ward);
+  const [apartment, setApartment] = useState(props.data.apartment);
+  const [apartmentNumber, setApartmentNumber] = useState(
+    props.data.apartment_number,
+  );
   const [phone, setPhone] = useState(props.data.phone);
 
   return (
@@ -36,51 +42,6 @@ export const AddressContentItem = props => {
           setName(name);
         }}
       />
-
-      <AppInput
-        textInputRef={r => (inputRef = r)}
-        leftIcon={IconNames.MapMarkerAlt}
-        placeholder={'Address'}
-        value={address}
-        onChangeText={address => {
-          setAddress(address);
-        }}
-      />
-
-      <View style={itemStyles.horizontalInputsContainer}>
-        <AppInput
-          textInputRef={r => (inputRef = r)}
-          leftIcon={IconNames.Map}
-          placeholder={'City'}
-          containerStyle={itemStyles.horizontalInput}
-          value={city}
-          onChangeText={city => {
-            setCity(city);
-          }}
-        />
-
-        <AppInput
-          textInputRef={r => (inputRef = r)}
-          leftIcon={IconNames.Mailbox}
-          placeholder={'Zip Code'}
-          containerStyle={itemStyles.horizontalInput}
-          value={zipCode}
-          onChangeText={zipCode => {
-            setZipCode(zipCode);
-          }}
-        />
-      </View>
-
-      <AppInput
-        textInputRef={r => (inputRef = r)}
-        leftIcon={IconNames.Globe}
-        placeholder={'Country'}
-        value={country}
-        onChangeText={country => {
-          setCountry(country);
-        }}
-      />
-
       <AppInput
         textInputRef={r => (inputRef = r)}
         leftIcon={IconNames.PhoneFlip}
@@ -91,10 +52,74 @@ export const AddressContentItem = props => {
         }}
       />
 
+      <AppInput
+        textInputRef={r => (inputRef = r)}
+        leftIcon={IconNames.MapMarkerAlt}
+        placeholder={'Street'}
+        value={street}
+        onChangeText={street => {
+          setStreet(street);
+        }}
+      />
+      <AppInput
+        textInputRef={r => (inputRef = r)}
+        leftIcon={IconNames.MapMarkerAlt}
+        placeholder={'Ward'}
+        value={ward}
+        onChangeText={ward => {
+          setWard(ward);
+        }}
+      />
+      <AppInput
+        textInputRef={r => (inputRef = r)}
+        leftIcon={IconNames.MapMarkerAlt}
+        placeholder={'City'}
+        value={city}
+        onChangeText={city => {
+          setCity(city);
+        }}
+      />
+
+      <AppInput
+        textInputRef={r => (inputRef = r)}
+        leftIcon={IconNames.Globe}
+        placeholder={'Apartment'}
+        value={apartment}
+        onChangeText={apartment => {
+          setApartment(apartment);
+        }}
+      />
+      <AppInput
+        textInputRef={r => (inputRef = r)}
+        leftIcon={IconNames.Globe}
+        placeholder={'Apartment Number'}
+        value={apartmentNumber}
+        onChangeText={apartmentNumber => {
+          setApartmentNumber(apartmentNumber);
+        }}
+      />
+
       <View style={itemStyles.defaultContainer}>
         <CustomSwitch initialValue={false} onValueChange={value => {}} />
 
         <Text style={itemStyles.defaultText}>{'Make Default'}</Text>
+      </View>
+      <View style={[itemStyles.bottomContainer, {marginTop:10}]}>
+        <AppButton
+          title={'Save Settings'}
+          onPress={async () => {
+            await updateAddress({
+              receiver: name,
+              city,
+              street,
+              ward,
+              apartment_number:  apartmentNumber,
+              apartment_name:  apartment,
+              contact: phone,
+              id: props.data.id
+            });
+          }}
+        />
       </View>
     </View>
   );

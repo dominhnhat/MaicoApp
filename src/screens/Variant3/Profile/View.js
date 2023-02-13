@@ -5,6 +5,7 @@ import {
   Text,
   TouchableHighlight,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   useColorScheme,
   View,
 } from 'react-native';
@@ -33,31 +34,26 @@ export const Variant3Profile = props => {
   //Internal States
   const [profileImage, setProfileImage] = useState('');
 
-  const renderProfileListItem = (item, index) => {
+  const renderProfileCardItem = (item, index) => {
     return (
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         key={index}
-        onPress={() => item.onPress()}
-        style={screenStyles.profileListingItemContainer}>
-        <SvgIcon
-          type={item.icon}
-          width={20}
-          height={20}
-          color={colors.activeColor}
-          style={screenStyles.profileListingItemLeftImage}
-        />
+        onPress={() => {
+          item.onPress();
+        }}>
+        <View style={screenStyles.cardListingItemContainer}>
+          <View style={screenStyles.cardListingItemIconContainer}>
+            <SvgIcon
+              type={item.icon}
+              width={20}
+              height={20}
+              color={colors.activeColor}
+            />
+          </View>
 
-        <Text style={screenStyles.profileListingItemText}>{item.title}</Text>
-
-        <View style={screenStyles.profileListingItemRightContainer}>
-          <SvgIcon
-            type={IconNames.ChevronRight}
-            width={15}
-            height={15}
-            color={colors.switchBorder}
-          />
+          <Text style={screenStyles.cardListingItemText}>{item.title}</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     );
   };
 
@@ -78,7 +74,7 @@ export const Variant3Profile = props => {
             style={screenStyles.profileImage}
           />
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               Utilities.selectImage(response => {
                 setProfileImage(response);
@@ -95,7 +91,7 @@ export const Variant3Profile = props => {
               height={20}
               color={colors.activeColor}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         <View style={screenStyles.infoContainer}>
@@ -104,7 +100,7 @@ export const Variant3Profile = props => {
         </View>
       </View>
 
-      <View style={[screenStyles.overlayContainer]}>
+      {/* <View style={[screenStyles.overlayContainer]}>
         <Text style={screenStyles.ordersText}>{'Orders'}</Text>
 
         <View style={screenStyles.overlayNestedContainer}>
@@ -184,16 +180,18 @@ export const Variant3Profile = props => {
             </View>
           </TouchableHighlight>
         </View>
-      </View>
-
+      </View> */}
       <View style={screenStyles.container}>
-        <FlatList
-          style={screenStyles.listingContainer}
-          data={Globals.profileList(props.navigation)}
-          renderItem={({item, index}) => {
-            return renderProfileListItem(item, index);
-          }}
-        />
+        <View style={screenStyles.itemsContainer}>
+          <FlatList
+            style={screenStyles.cardListContainer}
+            numColumns={3}
+            data={Globals.profileList(props.navigation)}
+            renderItem={({item, index}) => {
+              return renderProfileCardItem(item, index);
+            }}
+          />
+        </View>
       </View>
     </View>
   );

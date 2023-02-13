@@ -1,0 +1,45 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "branding/carter/assets/fonts/a.ttf",
+      "sha1": "d73b130a81277e951bed28082397d01cdcce19b9"
+    },
+    {
+      "path": "branding/carter/assets/fonts/ComicNeue-Bold.ttf",
+      "sha1": "42f568a2e1976e99940315d9c507826ae30f2e96"
+    },
+    {
+      "path": "branding/carter/assets/fonts/Rubik-Bold.ttf",
+      "sha1": "37d3e9933d7ea3cd1ea9048a929a9392c506538f"
+    },
+    {
+      "path": "branding/carter/assets/fonts/Rubik-Light.ttf",
+      "sha1": "ab626c8a0e663e9daf5b5064783e06ebfef9c80b"
+    },
+    {
+      "path": "branding/carter/assets/fonts/Rubik-Medium.ttf",
+      "sha1": "1c7160fa20ccc42db9a1fc9245cd8f9367a428ea"
+    },
+    {
+      "path": "branding/carter/assets/fonts/Rubik-Regular.ttf",
+      "sha1": "688c0cbc43d63c4f63cb997018fe889915a9dc7b"
+    },
+    {
+      "path": "branding/carter/assets/fonts/SVN-Rubik-Bold.ttf",
+      "sha1": "a181f11d388d9f66aaf16d08c9c3d042d5a192cd"
+    },
+    {
+      "path": "branding/carter/assets/fonts/SVN-Rubik-Light.ttf",
+      "sha1": "919cc4702a56bf109869d284e721db9fb3bc63b9"
+    },
+    {
+      "path": "branding/carter/assets/fonts/SVN-Rubik-Medium.ttf",
+      "sha1": "227fea41f15346b6caa39275d4c229621173347b"
+    },
+    {
+      "path": "branding/carter/assets/fonts/SVN-Rubik-Regular.ttf",
+      "sha1": "e7c726af175c8e729159f7592958ff7397e8d429"
+    }
+  ]
+}

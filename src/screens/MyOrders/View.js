@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Animated, ScrollView, useColorScheme, View} from 'react-native';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -11,6 +11,9 @@ import {useTheme} from '@react-navigation/native';
 import AppConfig from '../../../branding/App_config';
 import {SvgIcon} from '../../components/Application/SvgIcon/View';
 import IconNames from '../../../branding/carter/assets/IconNames';
+import {getUserId} from '../../services/user-services';
+import {getAllOrderByUserId} from '../../services/order-services';
+import {getAllStatus} from '../../services/status-services';
 
 const assets = AppConfig.assets.default;
 
@@ -36,6 +39,25 @@ export const MyOrders = props => {
 
   //Internal States
   const [activeSections, setActiveSections] = useState([]);
+  const [orderItems, setOrderItems] = useState([]);
+  const [userId, setUserId] = useState(0);
+  const [status, setStatus] = useState(0);
+
+  useEffect(() => {
+    getUserId().then(c => {
+      setUserId(c);
+    });
+  }, []);
+  useEffect(() => {
+    getAllStatus().then(c => {
+      setStatus(c);
+    });
+  }, []);
+  useEffect(() => {
+    getAllOrderByUserId(userId).then(b => {
+      setOrderItems(b);
+    });
+  }, [userId]);
 
   const renderOrdersHeader = (section, index, isActive) => {
     const spin = section.spinValue.interpolate({
@@ -110,7 +132,7 @@ export const MyOrders = props => {
                   },
                   screenStyles.headerSubtitleValueText,
                 ]}>
-                {'$ 16.99'}
+                {section.total}
               </Text>
             </View>
           </View>
@@ -146,173 +168,102 @@ export const MyOrders = props => {
     );
   };
 
+  const orderStatusLog = item => {
+    return (
+      <View style={screenStyles.contentItemContainer}>
+        <View style={screenStyles.contentItemLeftContainer}>
+          <View
+            style={[
+              screenStyles.contentItemCircle,
+              {
+                backgroundColor: item.isSelfEnabled
+                  ? colors.subHeadingSecondaryColor
+                  : colors.inputColor,
+              },
+            ]}
+          />
+
+          <Divider
+            style={[
+              screenStyles.contentItemLine,
+              {
+                backgroundColor: item.isNextEnabled
+                  ? colors.subHeadingSecondaryColor
+                  : colors.borderColorLight,
+              },
+            ]}
+          />
+        </View>
+        <Text style={screenStyles.contentItemLeftText}>{item.name}</Text>
+        <Text style={screenStyles.contentItemRightText}>{item.updated_at}</Text>
+      </View>
+    );
+  };
   const renderOrdersContent = section => {
+    const orderLogs = section.order_status_log;
+    const statusLogs = status
+      .sort((a, b) => {
+        return a.level - b.level;
+      })
+      .map((c, index) => {
+        const orderLogComperative = orderLogs.find(
+          b => b.status.status === c.name,
+        );
+        let nextOrderLogComperative;
+        if (index < status.length) {
+          nextOrderLogComperative = orderLogs.find(
+            b => b.status.status === status[index + 1]?.name,
+          );
+        }
+
+        return {
+          name: c.name,
+          updated_at: orderLogComperative
+            ? orderLogComperative.updated_at
+            : 'Đang chờ',
+          isSelfEnabled: orderLogComperative ? true : false,
+          isNextEnabled: nextOrderLogComperative ? true : false,
+          level: c.level,
+        };
+      });
+    // const sortedStatusLogs = statusLogs.sort((a, b) => {
+    //   return a.level - b.level;
+    // });
     return (
       <View style={screenStyles.contentContainerStyle}>
-        <View style={screenStyles.contentItemContainer}>
-          <View style={screenStyles.contentItemLeftContainer}>
-            <View
-              style={[
-                screenStyles.contentItemCircle,
-                {
-                  backgroundColor: section.isOrderPlaced
-                    ? colors.subHeadingSecondaryColor
-                    : colors.inputColor,
-                },
-              ]}
-            />
+        {statusLogs.map((item, index) => {
+          return (
+            <View style={screenStyles.contentItemContainer} key={index}>
+              <View style={screenStyles.contentItemLeftContainer}>
+                <View
+                  style={[
+                    screenStyles.contentItemCircle,
+                    {
+                      backgroundColor: item.isSelfEnabled
+                        ? colors.subHeadingSecondaryColor
+                        : colors.inputColor,
+                    },
+                  ]}
+                />
 
-            <Divider
-              style={[
-                screenStyles.contentItemLine,
-                {
-                  backgroundColor: section.isOrderConfirmed
-                    ? colors.subHeadingSecondaryColor
-                    : colors.borderColorLight,
-                },
-              ]}
-            />
-          </View>
-          <Text style={screenStyles.contentItemLeftText}>
-            {'Orders Placed'}
-          </Text>
-          <Text style={screenStyles.contentItemRightText}>
-            {section.orderPlaced}
-          </Text>
-        </View>
-
-        <View style={screenStyles.contentItemContainer}>
-          <View style={screenStyles.contentItemLeftContainer}>
-            <View
-              style={[
-                screenStyles.contentItemCircle,
-                {
-                  backgroundColor: section.isOrderConfirmed
-                    ? colors.subHeadingSecondaryColor
-                    : colors.inputColor,
-                },
-              ]}
-            />
-
-            <Divider
-              style={[
-                screenStyles.contentItemLine,
-                {
-                  backgroundColor: section.isOrderShipped
-                    ? colors.subHeadingSecondaryColor
-                    : colors.borderColorLight,
-                },
-              ]}
-            />
-          </View>
-          <Text style={screenStyles.contentItemLeftText}>
-            {'Order Confirmed'}
-          </Text>
-          <Text style={screenStyles.contentItemRightText}>
-            {section.orderConfirmed}
-          </Text>
-        </View>
-
-        <View style={screenStyles.contentItemContainer}>
-          <View style={screenStyles.contentItemLeftContainer}>
-            <View
-              style={[
-                screenStyles.contentItemCircle,
-                {
-                  backgroundColor: section.isOrderShipped
-                    ? colors.subHeadingSecondaryColor
-                    : colors.inputColor,
-                },
-              ]}
-            />
-
-            <Divider
-              style={[
-                screenStyles.contentItemLine,
-                {
-                  backgroundColor: section.isOrderOutOfDelivery
-                    ? colors.subHeadingSecondaryColor
-                    : colors.borderColorLight,
-                },
-              ]}
-            />
-          </View>
-          <Text style={screenStyles.contentItemLeftText}>
-            {'Order Shipped'}
-          </Text>
-          <Text style={screenStyles.contentItemRightText}>
-            {section.orderShipped}
-          </Text>
-        </View>
-
-        <View style={screenStyles.contentItemContainer}>
-          <View style={screenStyles.contentItemLeftContainer}>
-            <View
-              style={[
-                screenStyles.contentItemCircle,
-                {
-                  backgroundColor: section.isOrderOutOfDelivery
-                    ? colors.subHeadingSecondaryColor
-                    : colors.inputColor,
-                },
-              ]}
-            />
-
-            <Divider
-              style={[
-                screenStyles.contentItemLine,
-                {
-                  backgroundColor: section.isOrderDelivered
-                    ? colors.subHeadingSecondaryColor
-                    : colors.borderColorLight,
-                },
-              ]}
-            />
-          </View>
-          <Text
-            style={[
-              screenStyles.contentItemLeftText,
-              {
-                color: section.isOrderOutOfDelivery
-                  ? colors.headingColor
-                  : colors.subHeadingColor,
-              },
-            ]}>
-            {'Out of Delivery'}
-          </Text>
-          <Text style={[screenStyles.contentItemRightText]}>
-            {section.outOfDelivery}
-          </Text>
-        </View>
-
-        <View style={screenStyles.contentItemContainer}>
-          <View style={screenStyles.contentItemLeftContainer}>
-            <View
-              style={[
-                screenStyles.contentItemCircle,
-                {
-                  backgroundColor: section.isOrderDelivered
-                    ? colors.subHeadingSecondaryColor
-                    : colors.inputColor,
-                },
-              ]}
-            />
-          </View>
-          <Text
-            style={[
-              screenStyles.contentItemLeftText,
-              {
-                color: section.isOrderOutOfDelivery
-                  ? colors.headingColor
-                  : colors.subHeadingColor,
-              },
-            ]}>
-            {'Order Delivered'}
-          </Text>
-          <Text style={screenStyles.contentItemRightText}>
-            {section.orderDelivered}
-          </Text>
-        </View>
+                <Divider
+                  style={[
+                    screenStyles.contentItemLine,
+                    {
+                      backgroundColor: item.isNextEnabled
+                        ? colors.subHeadingSecondaryColor
+                        : colors.borderColorLight,
+                    },
+                  ]}
+                />
+              </View>
+              <Text style={screenStyles.contentItemLeftText}>{item.name}</Text>
+              <Text style={screenStyles.contentItemRightText}>
+                {item.updated_at}
+              </Text>
+            </View>
+          );
+        })}
       </View>
     );
   };
@@ -338,7 +289,7 @@ export const MyOrders = props => {
         return (
           <ScrollView showsVerticalScrollIndicator={false}>
             <Accordion
-              sections={Globals.ordersItems}
+              sections={orderItems}
               activeSections={activeSections}
               renderHeader={renderOrdersHeader}
               renderContent={renderOrdersContent}

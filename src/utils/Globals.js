@@ -1267,12 +1267,12 @@ class Globals {
   //Profile List
   static profileList = navigation => {
     return [
-      {
-        id: 1,
-        icon: IconNames.UserAlt,
-        title: 'About me',
-        onPress: () => navigation.navigate(Routes.ABOUT_ME),
-      },
+      // {
+      //   id: 1,
+      //   icon: IconNames.UserAlt,
+      //   title: 'About me',
+      //   onPress: () => navigation.navigate(Routes.ABOUT_ME),
+      // },
       {
         id: 2,
         icon: IconNames.Box,
@@ -1285,30 +1285,30 @@ class Globals {
         title: 'My Addresses',
         onPress: () => navigation.navigate(Routes.My_Address),
       },
-      {
-        id: 4,
-        icon: IconNames.CreditCard,
-        title: 'Credit Cards',
-        onPress: () => navigation.navigate(Routes.My_CREDIT_CARDS),
-      },
-      {
-        id: 5,
-        icon: IconNames.MoneyBillWave,
-        title: 'Transactions',
-        onPress: () => navigation.navigate(Routes.TRANSACTIONS),
-      },
-      {
-        id: 6,
-        icon: IconNames.Bell,
-        title: 'Notifications',
-        onPress: () => navigation.navigate(Routes.NOTIFICATIONS),
-      },
-      {
-        id: 7,
-        icon: IconNames.Th,
-        title: 'Categories',
-        onPress: () => navigation.navigate(Routes.CATEGORY_LIST),
-      },
+      // {
+      //   id: 4,
+      //   icon: IconNames.CreditCard,
+      //   title: 'Credit Cards',
+      //   onPress: () => navigation.navigate(Routes.My_CREDIT_CARDS),
+      // },
+      // {
+      //   id: 5,
+      //   icon: IconNames.MoneyBillWave,
+      //   title: 'Transactions',
+      //   onPress: () => navigation.navigate(Routes.TRANSACTIONS),
+      // },
+      // {
+      //   id: 6,
+      //   icon: IconNames.Bell,
+      //   title: 'Notifications',
+      //   onPress: () => navigation.navigate(Routes.NOTIFICATIONS),
+      // },
+      // {
+      //   id: 7,
+      //   icon: IconNames.Th,
+      //   title: 'Categories',
+      //   onPress: () => navigation.navigate(Routes.CATEGORY_LIST),
+      // },
       {
         id: 8,
         icon: IconNames.PowerOff,
