@@ -10,7 +10,7 @@ const Typography = AppConfig.typography.default;
 export const Styles = function (scheme, colors) {
   return {
     container: {
-      height: hp('15'),
+      height: hp('17'),
       backgroundColor: 'transparent',
       flexDirection: 'row',
       borderRadius: hp(0.75),

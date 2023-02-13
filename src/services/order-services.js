@@ -22,10 +22,10 @@ async function getAllOrderByUserId(id) {
         total: sumOrderValue(c.order_item),
         isOrderDelivered: c.status.name === 'Giao thành công' ? true : false,
         order_status_log: c.order_status_log,
-        spinValue: new Animated.Value(0),
+        spinValue: new Animated.Value(0)
       };
     });
-    console.log(result);
+    console.log(result)
     return result;
   } catch (error) {
     throw error;

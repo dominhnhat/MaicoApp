@@ -269,7 +269,9 @@ export const Variant3Home = props => {
 
                 <TouchableOpacity
                   onPress={() => {
-                    props.navigation.navigate(Routes.POPULAR_DEALS);
+                    props.navigation.navigate(Routes.POPULAR_DEALS, {
+                      items: foodItems,
+                    });
                   }}>
                   <View style={screenStyles.sectionHeading}>
                     <Text style={screenStyles.sectionHeadingText}>

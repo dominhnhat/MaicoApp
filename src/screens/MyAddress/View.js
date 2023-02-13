@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, useColorScheme, View} from 'react-native';
+import {ScrollView, useColorScheme, View, Text} from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 import BaseView from '../BaseView';
 import Routes from '../../navigation/Routes';
@@ -12,6 +12,8 @@ import IconNames from '../../../branding/carter/assets/IconNames';
 import {AddressContentItem} from '../../components/Application/AddressContentItem/View';
 import {getAddressesByUserId} from '../../services/user-address-services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getUserId} from '../../services/user-services';
+
 export const MyAddress = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();

@@ -1,4 +1,7 @@
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 import AppConfig from '../../../branding/App_config';
 
@@ -32,6 +35,38 @@ export const Styles = function (colors) {
     switchContainer: {
       flexDirection: 'row',
       marginTop: hp(1),
+    },
+    deliveryContainer: {
+      height: hp('14'),
+      backgroundColor: colors.primaryBackground,
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: hp('1'),
+      borderRadius: hp(0.75),
+      paddingHorizontal: wp(5),
+    },
+
+    deliveryHeader: {
+      fontFamily: Fonts.RUBIK_MEDIUM,
+      fontSize: Typography.P3,
+      marginTop: hp('1'),
+      marginBottom: hp('1.5'),
+      color: colors.headingColor,
+    },
+
+    deliveryDescription: {
+      fontFamily: Fonts.RUBIK_REGULAR,
+      fontSize: Typography.P6,
+      lineHeight: Typography.P3,
+      color: colors.subHeadingColor,
+    },
+    container: {
+      flex: 1,
+      marginTop: hp(2),
+    },
+
+    upperContainer: {
+      flex: 0.9,
     },
   };
 };

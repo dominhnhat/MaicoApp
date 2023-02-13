@@ -18,6 +18,7 @@ async function getAddressesByUserId(id) {
         street: c.street,
         city: c.city,
         ward: c.ward,
+        district: c.district,
         apartment: c.apartment_name,
         apartment_number: c.apartment_number,
         phone: c.contact,
