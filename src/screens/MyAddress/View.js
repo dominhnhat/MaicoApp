@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView, useColorScheme, View} from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 import BaseView from '../BaseView';
@@ -10,6 +10,8 @@ import {Styles} from './Styles';
 import {useTheme} from '@react-navigation/native';
 import IconNames from '../../../branding/carter/assets/IconNames';
 import {AddressContentItem} from '../../components/Application/AddressContentItem/View';
+import {getAddressesByUserId} from '../../services/user-address-services';
+import {getUserId} from '../../services/user-services';
 
 export const MyAddress = props => {
   //Theme based styling and colors
@@ -19,6 +21,20 @@ export const MyAddress = props => {
 
   //Internal states
   const [activeSections, setActiveSections] = useState([]);
+  const [addresses, getaddresses] = useState([]);
+  const [userId, setUserId] = useState(0);
+
+  useEffect(() => {
+    getUserId().then(c => {
+      setUserId(c);
+    });
+  }, []);
+
+  useEffect(() => {
+    getAddressesByUserId(userId).then(c => {
+      getaddresses(c);
+    });
+  }, [userId]);
 
   const renderAddressesHeader = (section, index, isActive) => {
     if (index === 0) {
@@ -80,7 +96,7 @@ export const MyAddress = props => {
               showsVerticalScrollIndicator={false}
               style={screenStyles.scrollViewContainer}>
               <Accordion
-                sections={Globals.addressItems}
+                sections={addresses}
                 activeSections={activeSections}
                 renderHeader={renderAddressesHeader}
                 renderContent={renderAddressesContent}
@@ -90,15 +106,6 @@ export const MyAddress = props => {
                 onChange={_updateSections}
               />
             </ScrollView>
-
-            <View style={screenStyles.bottomContainer}>
-              <AppButton
-                title={'Save Settings'}
-                onPress={() => {
-                  props.navigation.goBack();
-                }}
-              />
-            </View>
           </View>
         );
       }}

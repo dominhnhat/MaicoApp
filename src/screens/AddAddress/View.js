@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState,  useEffect} from 'react';
 import {useColorScheme, View} from 'react-native';
 import {Text} from 'react-native-elements';
 
@@ -12,6 +12,8 @@ import {useTheme} from '@react-navigation/native';
 import {commonDarkStyles} from '../../../branding/carter/styles/dark/Style';
 import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
 import IconNames from '../../../branding/carter/assets/IconNames';
+import {addAddress} from '../../services/user-address-services';
+import {getUserId} from '../../services/user-services';
 
 export const AddAddress = props => {
   //Input reference for KeyboardAwareScrollView
@@ -25,13 +27,20 @@ export const AddAddress = props => {
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
 
   //Internal input field states
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [receiver, setReceiver] = useState('');
   const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [zipCode, setZipCode] = useState('');
+  const [street, setStreet] = useState('');
+  const [ward, setWard] = useState('');
   const [city, setCity] = useState('');
-  const [country, setCountry] = useState('');
+  const [apartment, setApartment] = useState('');
+  const [apartmentNumber, setApartmentNumber] = useState('');
+
+  const [userId, setUserId] = useState(0);
+  useEffect(() => {
+    getUserId().then(c => {
+      setUserId(c);
+    });
+  }, []);
 
   return (
     <BaseView
@@ -54,10 +63,10 @@ export const AddAddress = props => {
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
                   leftIcon={IconNames.CircleUser}
-                  placeholder={'Name'}
-                  value={name}
-                  onChangeText={name => {
-                    setName(name);
+                  placeholder={'Receiver'}
+                  value={receiver}
+                  onChangeText={receiver => {
+                    setReceiver(receiver);
                   }}
                 />
 
@@ -65,21 +74,9 @@ export const AddAddress = props => {
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
                   leftIcon={IconNames.Envelope}
-                  placeholder={'Email Address'}
-                  value={email}
-                  keyboardType={'email-address'}
-                  onChangeText={email => {
-                    setEmail(email);
-                  }}
-                />
-
-                <AppInput
-                  textInputRef={r => (inputRef = r)}
-                  {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.PhoneFlip}
                   placeholder={'Phone'}
                   value={phone}
-                  keyboardType={'phone-pad'}
+                  // keyboardType={'email-address'}
                   onChangeText={phone => {
                     setPhone(phone);
                   }}
@@ -88,22 +85,23 @@ export const AddAddress = props => {
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.MapMarkerAlt}
-                  placeholder={'Address'}
-                  value={address}
-                  onChangeText={address => {
-                    setAddress(address);
+                  leftIcon={IconNames.PhoneFlip}
+                  placeholder={'Street'}
+                  value={street}
+                  keyboardType={'phone-pad'}
+                  onChangeText={street => {
+                    setStreet(street);
                   }}
                 />
 
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.Mailbox}
-                  placeholder={'Zip code'}
-                  value={zipCode}
-                  onChangeText={zipCode => {
-                    setZipCode(zipCode);
+                  leftIcon={IconNames.MapMarkerAlt}
+                  placeholder={'Ward'}
+                  value={ward}
+                  onChangeText={ward => {
+                    setWard(ward);
                   }}
                 />
 
@@ -122,29 +120,49 @@ export const AddAddress = props => {
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
                   leftIcon={IconNames.Globe}
-                  placeholder={'Country'}
-                  value={country}
-                  onChangeText={country => {
-                    setCountry(country);
+                  placeholder={'Apartment'}
+                  value={apartment}
+                  onChangeText={apartment => {
+                    setApartment(apartment);
                   }}
                 />
 
-                <View style={screenStyles.switchContainer}>
+                <AppInput
+                  textInputRef={r => (inputRef = r)}
+                  {...globalStyles.secondaryInputStyle}
+                  leftIcon={IconNames.Mailbox}
+                  placeholder={'Apartment Number'}
+                  value={apartmentNumber}
+                  onChangeText={apartmentNumber => {
+                    apartmentNumber(apartmentNumber);
+                  }}
+                />
+                {/* <View style={screenStyles.switchContainer}>
                   <CustomSwitch
                     initialValue={false}
                     onValueChange={value => {}}
                   />
 
                   <Text style={screenStyles.defaultText}>{'Make Default'}</Text>
-                </View>
+                </View> */}
               </View>
             </KeyboardAwareScrollView>
 
             <View style={screenStyles.bottomButton}>
               <AppButton
                 title={'Add Address'}
-                onPress={() => {
-                  props.navigation.goBack();
+                onPress={ async () => {
+                  await addAddress({
+                    user_id: userId,
+                    receiver,
+                    city,
+                    ward,
+                    street,
+                    apartment_name: apartment,
+                    apartment_number: apartmentNumber,
+                    contact: phone,
+                    is_default: false,
+                  });
                 }}
               />
             </View>

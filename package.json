@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "modulefix": "node ./android/fixAndroidAssemble/node_modules_collapsible_fix.js"
   },
   "dependencies": {
     "@fawazahmed/react-native-read-more": "2.3.6",

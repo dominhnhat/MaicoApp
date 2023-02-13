@@ -129,8 +129,14 @@ export const AddressItem = props => {
 
           <View>
             <Text style={itemStyles.titleText}>{item.name}</Text>
-            <Text style={itemStyles.addressText} numberOfLines={2}>
-              {item.address}
+            <Text
+              style={[itemStyles.addressText, {width: '100%'}]}
+              numberOfLines={3}>
+              {item.apartment +
+                ' - ' +
+                item.apartment_number +
+                '\n' +
+                `${item.street}, ${item.city}, ${item.ward}`}
             </Text>
             <Text style={itemStyles.contactText}>{item.phone}</Text>
           </View>
