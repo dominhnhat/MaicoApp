@@ -41,7 +41,7 @@ export const MyOrders = props => {
   const [activeSections, setActiveSections] = useState([]);
   const [orderItems, setOrderItems] = useState([]);
   const [userId, setUserId] = useState(0);
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState([]);
 
   useEffect(() => {
     getProfile();
