@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, useColorScheme, View} from 'react-native';
+import {ScrollView, useColorScheme, View, Text} from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 import BaseView from '../BaseView';
 import Routes from '../../navigation/Routes';
@@ -92,6 +92,8 @@ export const MyAddress = props => {
       childView={() => {
         return (
           <View style={screenStyles.container}>
+            <Text>{userId}</Text>
+            <Text>{addresses.map(c => c.id)}</Text>
             <ScrollView
               showsVerticalScrollIndicator={false}
               style={screenStyles.scrollViewContainer}>

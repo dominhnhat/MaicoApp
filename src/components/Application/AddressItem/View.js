@@ -29,7 +29,14 @@ const deActiveAnimConfig = {
   easing: Easing.linear,
   useNativeDriver: true,
 };
+function addressFormat (address) {
+  let result = '';
+  let addressValue = Object.values(address);
+  result = addressValue.join(', ');
+  result = result.replace(', , ', ', '); //Replace for null address value
 
+  return result;
+}
 export const AddressItem = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
@@ -136,7 +143,12 @@ export const AddressItem = props => {
                 ' - ' +
                 item.apartment_number +
                 '\n' +
-                `${item.street}, ${item.city}, ${item.ward}`}
+                addressFormat({
+                  street: item.street,
+                  ward: item.ward,
+                  district: item.district,
+                  city: item.city,
+                })}
             </Text>
             <Text style={itemStyles.contactText}>{item.phone}</Text>
           </View>

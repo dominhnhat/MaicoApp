@@ -23,6 +23,7 @@ export const AddressContentItem = props => {
   const [name, setName] = useState(props.data.name);
   const [street, setStreet] = useState(props.data.street);
   const [city, setCity] = useState(props.data.city);
+  // const [district, setdistrict] = useState(props.data.district);
   const [ward, setWard] = useState(props.data.ward);
   const [apartment, setApartment] = useState(props.data.apartment);
   const [apartmentNumber, setApartmentNumber] = useState(
