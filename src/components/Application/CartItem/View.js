@@ -21,7 +21,9 @@ export const CartItem = props => {
   const renderRightActions = (progress, dragX) => {
     return (
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={async () => {
+          await props.rightAction(props.id);
+        }}
         style={itemStyles.rightSwipeContainer}>
         <SvgIcon
           type={IconNames.TrashAlt}

@@ -13,7 +13,11 @@ import {commonDarkStyles} from '../../../branding/carter/styles/dark/Style';
 import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
 import Config from '../../../branding/carter/configuration/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getCartItemForShow, updateCartItem} from '../../services/cart_services';
+import {
+  getCartItemForShow,
+  updateCartItem,
+  removeCartItem,
+} from '../../services/cart_services';
 import Toast from 'react-native-toast-message';
 export const CartList = props => {
   //Theme based styling and colors
@@ -45,11 +49,11 @@ export const CartList = props => {
     if (queryData) {
       if (JSON.stringify(queryData) !== JSON.stringify(cartItems)) {
         setCartItems(queryData);
-        await makeTotal(cartItems);
+        makeTotal(cartItems);
       }
     }
   };
-  const makeTotal = async items => {
+  const makeTotal = items => {
     console.log(items);
     if (items.length > 0) {
       let subtotal = 0;
@@ -60,6 +64,15 @@ export const CartList = props => {
     } else {
       setTotal(0);
     }
+  };
+  const removeItem = async id => {
+    await removeCartItem(id);
+    await getCartItem();
+    Toast.show({
+      type: 'success',
+      text1: 'Thành công',
+      text2: 'Xóa sản phẩm thành công'
+    })
   };
   return (
     <View style={screenStyles.mainContainer}>
@@ -93,6 +106,7 @@ export const CartList = props => {
                           await updateCartItem({id: item.id, quantity: count});
                           await getCartItem();
                         }}
+                        rightAction={removeItem}
                         navigation={props.navigation}
                       />
                     </View>
@@ -111,6 +125,7 @@ export const CartList = props => {
                           await updateCartItem({id: item.id, quantity: count});
                           await getCartItem();
                         }}
+                        rightAction={removeItem}
                         navigation={props.navigation}
                       />
                     </View>
@@ -128,6 +143,7 @@ export const CartList = props => {
                         await updateCartItem({id: item.id, quantity: count});
                         await getCartItem();
                       }}
+                      rightAction={removeItem}
                       navigation={props.navigation}
                     />
                   )
@@ -137,7 +153,6 @@ export const CartList = props => {
           }}
         />
       </View>
-
       <View
         style={[
           screenStyles.bottomContainerParent,
