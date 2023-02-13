@@ -28,7 +28,7 @@ export const SplashScreen = props => {
   useEffect(() => {
     setTimeout(() => {
       isLoggin();
-    }, 2000);
+    }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

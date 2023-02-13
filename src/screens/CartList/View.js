@@ -8,7 +8,7 @@ import {Divider, Text} from 'react-native-elements';
 import {Styles} from './Styles';
 import Globals from '../../utils/Globals';
 import AppButton from '../../components/Application/AppButton/View';
-import {useTheme} from '@react-navigation/native';
+import {useTheme, useIsFocused} from '@react-navigation/native';
 import {commonDarkStyles} from '../../../branding/carter/styles/dark/Style';
 import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
 import Config from '../../../branding/carter/configuration/Config';
@@ -29,10 +29,14 @@ export const CartList = props => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [profile, setProfile] = useState({});
+  const isForcused = useIsFocused();
   useEffect(() => {
     getProfile();
-    getCartItem();
-    console.log(total);
+  }, [profile]);
+  useEffect(() => {
+    if (isForcused) {
+      getCartItem();
+    }
   });
   const getProfile = async () => {
     let jsonValue = await AsyncStorage.getItem('@user');
@@ -50,8 +54,8 @@ export const CartList = props => {
     if (queryData) {
       if (JSON.stringify(queryData) !== JSON.stringify(cartItems)) {
         setCartItems(queryData);
+        await makeTotal(queryData);
       }
-      await makeTotal(cartItems);
     }
   };
   const makeTotal = async items => {
@@ -74,6 +78,17 @@ export const CartList = props => {
       text1: 'Thành công',
       text2: 'Xóa sản phẩm thành công',
     });
+  };
+  const Checkout = () => {
+    if (cartItems && cartItems.length > 0) {
+      props.navigation.navigate(Routes.CHECKOUT_ADDRESS);
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'Lỗi',
+        text2: 'Vui lòng thêm sản phảm',
+      });
+    }
   };
   return (
     <View style={screenStyles.mainContainer}>
@@ -181,15 +196,7 @@ export const CartList = props => {
           <AppButton
             title={'Checkout'}
             onPress={() => {
-              if (cartItems && cartItems.length > 0) {
-                props.navigation.navigate(Routes.CHECKOUT_DELIVERY);
-              } else {
-                Toast.show({
-                  type: 'error',
-                  text1: 'Lỗi',
-                  text2: 'Vui lòng thêm sản phảm',
-                });
-              }
+              Checkout();
             }}
           />
         </View>

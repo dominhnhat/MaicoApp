@@ -11,8 +11,7 @@ import {useTheme} from '@react-navigation/native';
 import IconNames from '../../../branding/carter/assets/IconNames';
 import {AddressContentItem} from '../../components/Application/AddressContentItem/View';
 import {getAddressesByUserId} from '../../services/user-address-services';
-import {getUserId} from '../../services/user-services';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const MyAddress = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
@@ -25,9 +24,7 @@ export const MyAddress = props => {
   const [userId, setUserId] = useState(0);
 
   useEffect(() => {
-    getUserId().then(c => {
-      setUserId(c);
-    });
+    getProfile();
   }, []);
 
   useEffect(() => {
@@ -35,7 +32,15 @@ export const MyAddress = props => {
       getaddresses(c);
     });
   }, [userId]);
-
+  const getProfile = async () => {
+    let userValue = await AsyncStorage.getItem('@user');
+    if (userValue) {
+      userValue = JSON.parse(userValue);
+      if (JSON.stringify(userId) !== JSON.stringify(userValue.id)) {
+        setUserId(userValue.id);
+      }
+    }
+  };
   const renderAddressesHeader = (section, index, isActive) => {
     if (index === 0) {
       return (

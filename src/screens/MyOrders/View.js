@@ -14,7 +14,7 @@ import IconNames from '../../../branding/carter/assets/IconNames';
 import {getUserId} from '../../services/user-services';
 import {getAllOrderByUserId} from '../../services/order-services';
 import {getAllStatus} from '../../services/status-services';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const assets = AppConfig.assets.default;
 
 //Animation Constants
@@ -44,9 +44,7 @@ export const MyOrders = props => {
   const [status, setStatus] = useState(0);
 
   useEffect(() => {
-    getUserId().then(c => {
-      setUserId(c);
-    });
+    getProfile();
   }, []);
   useEffect(() => {
     getAllStatus().then(c => {
@@ -58,7 +56,15 @@ export const MyOrders = props => {
       setOrderItems(b);
     });
   }, [userId]);
-
+  const getProfile = async () => {
+    let userValue = await AsyncStorage.getItem('@user');
+    if (userValue) {
+      userValue = JSON.parse(userValue);
+      if (JSON.stringify(userId) !== JSON.stringify(userValue.id)) {
+        setUserId(userValue.id);
+      }
+    }
+  };
   const renderOrdersHeader = (section, index, isActive) => {
     const spin = section.spinValue.interpolate({
       inputRange: [0, 1],

@@ -5,7 +5,8 @@ import BaseView from '../BaseView';
 import {Text} from 'react-native-elements';
 import Routes from '../../navigation/Routes';
 import AppButton from '../../components/Application/AppButton/View';
-import {useTheme} from '@react-navigation/native';
+import Config from '../../../branding/carter/configuration/Config';
+import {StackActions, useTheme} from '@react-navigation/native';
 import {Styles} from './Styles';
 import {SvgIcon} from '../../components/Application/SvgIcon/View';
 import IconNames from '../../../branding/carter/assets/IconNames';
@@ -42,9 +43,17 @@ export const OrderSuccess = props => {
 
             <View style={screenStyles.bottomContainer}>
               <AppButton
-                title={'Track Order'}
+                title={'Go Back'}
                 onPress={() => {
-                  props.navigation.navigate(Routes.TRACK_ORDERS);
+                  props.navigation.dispatch(
+                    StackActions.replace(
+                      Config.SELECTED_VARIANT === Routes.INTRO_SCREEN1
+                        ? Routes.HOME_VARIANT1
+                        : Config.SELECTED_VARIANT === Routes.INTRO_SCREEN2
+                        ? Routes.HOME_VARIANT2
+                        : Routes.HOME_VARIANT3,
+                    ),
+                  );
                 }}
               />
             </View>

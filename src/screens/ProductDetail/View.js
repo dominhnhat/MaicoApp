@@ -51,7 +51,7 @@ export const ProductDetail = props => {
   useEffect(() => {
     console.log(item);
     getProfile();
-  });
+  }, [profile]);
   const getProfile = async () => {
     let jsonValue = await AsyncStorage.getItem('@user');
     if (jsonValue) {
@@ -78,7 +78,7 @@ export const ProductDetail = props => {
         Toast.show({
           type: 'success',
           text1: 'Thành công',
-          text2: 'Thêm sản phẩm vào giỏ hàng'
+          text2: 'Thêm sản phẩm vào giỏ hàng',
         });
       }
     } else {

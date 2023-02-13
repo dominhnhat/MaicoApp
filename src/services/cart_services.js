@@ -75,15 +75,19 @@ async function getCartItemForShow(id) {
         price: c.product.price,
         weight: c.product.unit,
         cartCount: c.quantity,
+        product_id: c.product.id,
       };
     });
   } catch (error) {
     throw error;
   }
 }
-async function clearCart() {
+async function clearCart(userId) {
   try {
-    let {data, error} = await supabase.from('cart_item').delete().neq('id', 0);
+    let {data, error} = await supabase
+      .from('cart_item')
+      .delete()
+      .eq('user_id', userId);
     if (error) {
       throw error;
     }
@@ -98,5 +102,5 @@ export {
   getCartItemForShow,
   clearCart,
   removeCartItem,
-  updateCartItem
+  updateCartItem,
 };
