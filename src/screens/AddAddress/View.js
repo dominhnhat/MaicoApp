@@ -37,10 +37,7 @@ export const AddAddress = props => {
 
   //Internal input field states
   const [receiver, setReceiver] = useState('');
-  const [receiver, setReceiver] = useState('');
   const [phone, setPhone] = useState('');
-  const [street, setStreet] = useState('');
-  const [ward, setWard] = useState('');
   const [street, setStreet] = useState('');
   const [ward, setWard] = useState('');
   const [city, setCity] = useState('');
