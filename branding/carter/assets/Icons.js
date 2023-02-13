@@ -15,6 +15,7 @@ export Truck from './images/truck.svg';
 export MoneyBillWave from './images/money-bill-wave.svg';
 export Key from './images/key.svg';
 export Camera from './images/camera.svg';
+export Close from './images/close.svg';
 export Search from './images/search.svg';
 export SlidersH from './images/sliders-h.svg';
 export HomeAlt from './images/home-alt.svg';

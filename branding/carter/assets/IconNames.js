@@ -16,6 +16,7 @@ class IconNames {
   static MoneyBillWave = 'money-bill-wave';
   static Key = 'key';
   static Camera = 'camera';
+  static Close = 'close';
   static Search = 'search';
   static SlidersH = 'sliders-h';
   static HomeAlt = 'home-alt';

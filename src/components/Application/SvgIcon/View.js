@@ -70,6 +70,7 @@ import {
   Turkey,
   UserAlt,
   Wallet,
+  Close
 } from '../../../../branding/carter/assets/Icons';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 
@@ -78,6 +79,9 @@ const PropTypes = require('prop-types');
 export const SvgIcon = props => {
   const {type, color, width, height, style} = props;
 
+  if (type === IconNames.Close) {
+    return <Close style={[style]} width={width} height={height} fill={color} />;
+  }
   if (type === IconNames.Google) {
     return (
       <Google style={[style]} width={width} height={height} fill={color} />

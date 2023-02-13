@@ -92,8 +92,6 @@ export const MyAddress = props => {
       childView={() => {
         return (
           <View style={screenStyles.container}>
-            <Text>{userId}</Text>
-            <Text>{addresses.map(c => c.id)}</Text>
             <ScrollView
               showsVerticalScrollIndicator={false}
               style={screenStyles.scrollViewContainer}>

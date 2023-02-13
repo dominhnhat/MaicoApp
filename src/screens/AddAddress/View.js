@@ -1,10 +1,11 @@
-import React, {useRef, useState,  useEffect} from 'react';
-import {useColorScheme, View} from 'react-native';
-import {Text} from 'react-native-elements';
+import React, {useRef, useState, useEffect} from 'react';
+import {useColorScheme, View, TouchableWithoutFeedback} from 'react-native';
+import {Overlay, Text} from 'react-native-elements';
 
 import BaseView from '../BaseView';
 import AppInput from '../../components/Application/AppInput/View';
 import AppButton from '../../components/Application/AppButton/View';
+import AppHeader from '../../components/Application/AppHeader/View';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {CustomSwitch} from '../../components/Global/CustomSwitch/View';
 import {Styles} from './Styles';
@@ -14,6 +15,13 @@ import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
 import IconNames from '../../../branding/carter/assets/IconNames';
 import {addAddress} from '../../services/user-address-services';
 import {getUserId} from '../../services/user-services';
+import {getAllApartment} from '../../services/apartment-services';
+import {SvgIcon} from '../../components/Application/SvgIcon/View';
+import {ListItem} from 'react-native-elements';
+import AppConfig from '../../../branding/App_config';
+
+const fonts = AppConfig.fonts.default;
+const Typography = AppConfig.typography.default;
 
 export const AddAddress = props => {
   //Input reference for KeyboardAwareScrollView
@@ -35,12 +43,107 @@ export const AddAddress = props => {
   const [apartment, setApartment] = useState('');
   const [apartmentNumber, setApartmentNumber] = useState('');
 
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+
+  const [apartmentList, setApartmentList] = useState('');
+  useEffect(() => {
+    getAllApartment().then(c => {
+      setApartmentList(c);
+    });
+  }, []);
+
   const [userId, setUserId] = useState(0);
   useEffect(() => {
     getUserId().then(c => {
       setUserId(c);
     });
   }, []);
+  const [selectedApartmentIndex, setSelectedApartmentIndex] = useState(0);
+  const renderApartmentContainer = (title, description, index) => {
+    return (
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setSelectedApartmentIndex(selectedApartmentIndex => {
+            if (selectedApartmentIndex === index) {
+              return -1;
+            } else {
+              return index;
+            }
+          });
+        }}
+        key={index}>
+        <View
+          style={[
+            screenStyles.deliveryContainer,
+            selectedApartmentIndex === index && {
+              borderWidth: 2,
+              borderColor: colors.activeColor,
+            },
+          ]}>
+          <View style={{width: '90%'}}>
+            <Text style={screenStyles.deliveryHeader}>{title}</Text>
+            <Text style={screenStyles.deliveryDescription}>{description}</Text>
+          </View>
+
+          {/* <Text style={screenStyles.deliveryPrice}>{price}</Text> */}
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  };
+  const apartmentSelectorOverlay = () => {
+    return (
+      <Overlay isVisible={isOverlayVisible}>
+        <View style={{
+          justifyContent: 'space-between', //Centered horizontally
+          alignItems: 'center', //Centered vertically
+          flexDirection: 'row',
+          marginBottom: 10
+        }}>
+          <Text
+            style={{
+              fontFamily: fonts.RUBIK_MEDIUM,
+              fontSize: Typography.P1,
+              color: '#000000',
+              textAlign: 'center'
+            }}>
+            Chọn chung cư bạn ở
+          </Text>
+          <SvgIcon
+                style={{}}
+                color={'#000000'}
+                width={20}
+                height={20}
+                type={IconNames.Close}
+                onPress={() => {
+                  setIsOverlayVisible(false);
+                }}
+              />
+        </View>
+            
+        <View style={screenStyles.container}>
+            <View style={screenStyles.upperContainer}>
+              {apartmentList && apartmentList.map((item, index) => {
+                 return renderApartmentContainer(item.name, `${item.street}, ${item.city}`, index);
+              })}
+          </View>
+          <View style={screenStyles.bottomButton}>
+            <AppButton
+              title={'Xác nhận'}
+              onPress={() => {
+                setCity(apartmentList[selectedApartmentIndex].city);
+                setWard(apartmentList[selectedApartmentIndex].ward);
+                setStreet(apartmentList[selectedApartmentIndex].street);
+                setApartment(apartmentList[selectedApartmentIndex].name);
+
+                setIsOverlayVisible(false);
+            }}/>
+        </View>
+        </View>
+        
+        
+      </Overlay>
+    );
+  };
 
   return (
     <BaseView
@@ -58,7 +161,13 @@ export const AddAddress = props => {
               }}
               contentContainerStyle={screenStyles.parentContainer}
               showsVerticalScrollIndicator={false}>
-              <View style={{}}>
+              <View>
+                <AppButton
+                  title={'Lala'}
+                  onPress={() => {
+                    setIsOverlayVisible(true);
+                  }}
+                />
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
@@ -82,6 +191,31 @@ export const AddAddress = props => {
                   }}
                 />
 
+                <AppInput
+                  textInputRef={r => (inputRef = r)}
+                  {...globalStyles.secondaryInputStyle}
+                  editable={false}
+                  leftIcon={IconNames.Globe}
+                  placeholder={'Apartment'}
+                  value={apartment}
+                  // onChangeText={apartment => {
+                  //   setApartment(apartment);
+                  // }}
+                  onPressOut={() => {
+                    setIsOverlayVisible(true);
+                  }}
+                />
+
+                <AppInput
+                  textInputRef={r => (inputRef = r)}
+                  {...globalStyles.secondaryInputStyle}
+                  leftIcon={IconNames.Mailbox}
+                  placeholder={'Apartment Number'}
+                  value={apartmentNumber}
+                  onChangeText={apartmentNumber => {
+                    setApartmentNumber(apartmentNumber);
+                  }}
+                />
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
@@ -115,28 +249,6 @@ export const AddAddress = props => {
                     setCity(city);
                   }}
                 />
-
-                <AppInput
-                  textInputRef={r => (inputRef = r)}
-                  {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.Globe}
-                  placeholder={'Apartment'}
-                  value={apartment}
-                  onChangeText={apartment => {
-                    setApartment(apartment);
-                  }}
-                />
-
-                <AppInput
-                  textInputRef={r => (inputRef = r)}
-                  {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.Mailbox}
-                  placeholder={'Apartment Number'}
-                  value={apartmentNumber}
-                  onChangeText={apartmentNumber => {
-                    apartmentNumber(apartmentNumber);
-                  }}
-                />
                 {/* <View style={screenStyles.switchContainer}>
                   <CustomSwitch
                     initialValue={false}
@@ -151,7 +263,7 @@ export const AddAddress = props => {
             <View style={screenStyles.bottomButton}>
               <AppButton
                 title={'Add Address'}
-                onPress={ async () => {
+                onPress={async () => {
                   await addAddress({
                     user_id: userId,
                     receiver,
@@ -166,6 +278,7 @@ export const AddAddress = props => {
                 }}
               />
             </View>
+            {apartmentSelectorOverlay()}
           </View>
         );
       }}
