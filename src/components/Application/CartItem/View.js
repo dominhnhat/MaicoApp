@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image, TouchableOpacity, useColorScheme, View} from 'react-native';
 
 import {Button, Text} from 'react-native-elements';
@@ -17,11 +17,13 @@ export const CartItem = props => {
   const scheme = useColorScheme();
   const {colors} = useTheme();
   const itemStyles = Styles(scheme, colors);
-
+  const [count, setCount] = useState(props.cartCount);
   const renderRightActions = (progress, dragX) => {
     return (
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={async () => {
+          await props.rightAction(props.id);
+        }}
         style={itemStyles.rightSwipeContainer}>
         <SvgIcon
           type={IconNames.TrashAlt}
@@ -50,7 +52,7 @@ export const CartItem = props => {
             containerStyle={itemStyles.swipeableContainer}>
             <View style={itemStyles.foodItemContainer}>
               <Image
-                source={props.image}
+                source={{uri: props.image}}
                 style={itemStyles.foodItemImage}
                 resizeMode={'contain'}
               />
@@ -61,7 +63,14 @@ export const CartItem = props => {
               </View>
 
               <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <Counter isVertical outerBorder spacing={hp('5')} />
+                <Counter
+                  setCount={setCount}
+                  updateCount={props.cartCountChange}
+                  count={count}
+                  isVertical
+                  outerBorder
+                  spacing={hp('5')}
+                />
               </View>
             </View>
           </Swipeable>

@@ -11,7 +11,7 @@ import AppButton from '../../../components/Application/AppButton/View';
 import {commonLightStyles} from '../../../../branding/carter/styles/light/Style';
 import AppConfig from '../../../../branding/App_config';
 import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const colors = AppConfig.lightColors.default;
 
 export const Variant3Intro = props => {
@@ -73,9 +73,10 @@ export const Variant3Intro = props => {
       <View style={screenStyles.introLowerContainer}>
         <AppButton
           title={activeSlideIndex === 0 ? 'Get started' : 'Skip'}
-          onPress={() => {
+          onPress={async () => {
+            await AsyncStorage.setItem('@firstLoad', '1');
             props.navigation.dispatch(
-              StackActions.replace(Routes.LOGIN_SCREEN3),
+              StackActions.replace(Routes.LOGIN_FORM_SCREEN3),
             );
           }}
         />

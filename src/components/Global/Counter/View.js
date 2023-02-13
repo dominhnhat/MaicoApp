@@ -27,17 +27,32 @@ export const Counter = props => {
 
   //Constants
   const borderColor = colors.borderColorLight;
-
   //Internal states
-  const [cartCount, setCartCount] = useState(1);
+  const [cartCount, setCartCount] = useState(props.count ? props.count : 0);
 
   const _cartCountChange = behavior => {
     if (behavior === 'add') {
       setCartCount(cartCount => {
+        if (props.setCount) {
+          props.setCount(cartCount + 1);
+        }
+        if (props.updateCount) {
+          props.updateCount(cartCount + 1).then(() => {
+            return cartCount + 1;
+          });
+        }
         return cartCount + 1;
       });
     } else if (behavior === 'subtract' && !(cartCount === 0)) {
       setCartCount(cartCount => {
+        if (props.setCount) {
+          props.setCount(cartCount - 1);
+        }
+        if (props.updateCount) {
+          props.updateCount(cartCount - 1).then(() => {
+            return cartCount - 1;
+          });
+        }
         return cartCount - 1;
       });
     }

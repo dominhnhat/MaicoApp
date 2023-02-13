@@ -5,7 +5,7 @@ import assets from '../../branding/carter/assets/Assets';
 import {CommonActions} from '@react-navigation/native';
 import Config from '../../branding/carter/configuration/Config';
 import IconNames from '../../branding/carter/assets/IconNames';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const colors = AppConfig.lightColors.default;
 
 /**
@@ -1314,12 +1314,19 @@ class Globals {
         icon: IconNames.PowerOff,
         title: 'Sign out',
         onPress: () =>
+        async () => {
+          try {
+            await AsyncStorage.removeItem('@user');
+          } catch (e) {
+            // remove error
+          }
           navigation.dispatch(
             CommonActions.reset({
               index: 1,
               routes: [{name: Config.SELECTED_VARIANT}],
             }),
-          ),
+          );
+        }
       },
     ];
   };

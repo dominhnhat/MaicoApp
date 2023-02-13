@@ -28,7 +28,7 @@ import IconNames from '../../../../branding/carter/assets/IconNames';
 import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
 import {getAllCategory} from '../../../services/category-services';
 import {getAllProduct} from '../../../services/product-services';
-import { CategoryItems } from '../../CategoryItems/View';
+import {CategoryItems} from '../../CategoryItems/View';
 
 //Constants
 const slider_data = [
@@ -71,6 +71,7 @@ export const Variant3Home = props => {
       setfoodItems(c);
     });
   }, []);
+  // console.log({category: categoryItems});
   //References
   const _carousel = useRef();
   let _favouriteSheet = useRef();
@@ -290,6 +291,8 @@ export const Variant3Home = props => {
           }}
           renderItem={({item}) => (
             <FoodItem
+              id={item.id}
+              
               title={item.title}
               image={item.image}
               bigImage={item.bigImage}

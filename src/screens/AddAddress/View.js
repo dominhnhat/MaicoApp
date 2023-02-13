@@ -15,6 +15,7 @@ import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
 import IconNames from '../../../branding/carter/assets/IconNames';
 import {addAddress} from '../../services/user-address-services';
 import {getUserId} from '../../services/user-services';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import {getAllApartment} from '../../services/apartment-services';
 import {SvgIcon} from '../../components/Application/SvgIcon/View';
 import {ListItem} from 'react-native-elements';
@@ -94,37 +95,43 @@ export const AddAddress = props => {
   const apartmentSelectorOverlay = () => {
     return (
       <Overlay isVisible={isOverlayVisible}>
-        <View style={{
-          justifyContent: 'space-between', //Centered horizontally
-          alignItems: 'center', //Centered vertically
-          flexDirection: 'row',
-          marginBottom: 10
-        }}>
+        <View
+          style={{
+            justifyContent: 'space-between', //Centered horizontally
+            alignItems: 'center', //Centered vertically
+            flexDirection: 'row',
+            marginBottom: 10,
+          }}>
           <Text
             style={{
               fontFamily: fonts.RUBIK_MEDIUM,
               fontSize: Typography.P1,
               color: '#000000',
-              textAlign: 'center'
+              textAlign: 'center',
             }}>
             Chọn chung cư bạn ở
           </Text>
           <SvgIcon
-                style={{}}
-                color={'#000000'}
-                width={20}
-                height={20}
-                type={IconNames.Close}
-                onPress={() => {
-                  setIsOverlayVisible(false);
-                }}
-              />
+            style={{}}
+            color={'#000000'}
+            width={20}
+            height={20}
+            type={IconNames.Close}
+            onPress={() => {
+              setIsOverlayVisible(false);
+            }}
+          />
         </View>
-            
+
         <View style={screenStyles.container}>
-            <View style={screenStyles.upperContainer}>
-              {apartmentList && apartmentList.map((item, index) => {
-                 return renderApartmentContainer(item.name, `${item.street}, ${item.city}`, index);
+          <View style={screenStyles.upperContainer}>
+            {apartmentList &&
+              apartmentList.map((item, index) => {
+                return renderApartmentContainer(
+                  item.name,
+                  `${item.street}, ${item.city}`,
+                  index,
+                );
               })}
           </View>
           <View style={screenStyles.bottomButton}>
@@ -138,11 +145,10 @@ export const AddAddress = props => {
                 setDistrict(apartmentList[selectedApartmentIndex].district);
 
                 setIsOverlayVisible(false);
-            }}/>
+              }}
+            />
+          </View>
         </View>
-        </View>
-        
-        
       </Overlay>
     );
   };
@@ -187,6 +193,7 @@ export const AddAddress = props => {
                   leftIcon={IconNames.Envelope}
                   placeholder={'Phone'}
                   value={phone}
+                  // keyboardType={'email-address'}
                   // keyboardType={'email-address'}
                   onChangeText={phone => {
                     setPhone(phone);
@@ -286,6 +293,11 @@ export const AddAddress = props => {
                     apartment_number: apartmentNumber,
                     contact: phone,
                     is_default: false,
+                  });
+                  Toast.show({
+                    type: 'success',
+                    text1: 'Thành công',
+                    text2: 'Thêm địa chỉ thành công',
                   });
                 }}
               />

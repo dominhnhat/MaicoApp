@@ -25,7 +25,7 @@ const AppButton = props => {
   const titleStyle = props.titleStyle || globalStyles.primaryButtonTextStyle;
   const title = props.title || 'Text';
   const onPress = props.onPress || (() => {});
-
+  const loading = props.loading;
   return (
     <Shadow
       viewStyle={{alignSelf: 'stretch'}}
@@ -37,6 +37,7 @@ const AppButton = props => {
       <Button
         buttonStyle={buttonStyle}
         title={title}
+        loading={loading}
         titleStyle={titleStyle}
         onPress={() => {
           onPress();
