@@ -82,7 +82,11 @@ export const ProductDetail = props => {
         });
       }
     } else {
-      console.warn('Vui lòng thêm số lượng sản phẩm');
+      Toast.show({
+        type: 'error',
+        text1: 'Lỗi',
+        text2: 'Vui lòng thêm số lượng sản phẩm',
+      });
     }
   };
   return (

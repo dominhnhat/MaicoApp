@@ -28,7 +28,7 @@ export const Counter = props => {
   //Constants
   const borderColor = colors.borderColorLight;
   //Internal states
-  const [cartCount, setCartCount] = useState(props.count ? props.count : 1);
+  const [cartCount, setCartCount] = useState(props.count ? props.count : 0);
 
   const _cartCountChange = behavior => {
     if (behavior === 'add') {

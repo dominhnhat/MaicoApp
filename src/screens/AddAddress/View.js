@@ -182,10 +182,6 @@ export const AddAddress = props => {
                   value={receiver}
                   onChangeText={receiver => {
                     setReceiver(receiver);
-                  placeholder={'Receiver'}
-                  value={receiver}
-                  onChangeText={receiver => {
-                    setReceiver(receiver);
                   }}
                 />
 
