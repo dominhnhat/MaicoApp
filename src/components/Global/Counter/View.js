@@ -33,16 +33,26 @@ export const Counter = props => {
   const _cartCountChange = behavior => {
     if (behavior === 'add') {
       setCartCount(cartCount => {
-        props.setCount(cartCount + 1);
-        props.updateCount(cartCount + 1).then(() => {
-          return cartCount + 1;
-        });
+        if (props.setCount) {
+          props.setCount(cartCount + 1);
+        }
+        if (props.updateCount) {
+          props.updateCount(cartCount + 1).then(() => {
+            return cartCount + 1;
+          });
+        }
         return cartCount + 1;
       });
     } else if (behavior === 'subtract' && !(cartCount === 0)) {
       setCartCount(cartCount => {
-        props.setCount(cartCount - 1);
-        props.updateCount(cartCount - 1); 
+        if (props.setCount) {
+          props.setCount(cartCount - 1);
+        }
+        if (props.updateCount) {
+          props.updateCount(cartCount - 1).then(() => {
+            return cartCount - 1;
+          });
+        }
         return cartCount - 1;
       });
     }

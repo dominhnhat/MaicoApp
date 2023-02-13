@@ -32,6 +32,7 @@ export const CartList = props => {
   useEffect(() => {
     getProfile();
     getCartItem();
+    console.log(total);
   });
   const getProfile = async () => {
     let jsonValue = await AsyncStorage.getItem('@user');
@@ -49,11 +50,11 @@ export const CartList = props => {
     if (queryData) {
       if (JSON.stringify(queryData) !== JSON.stringify(cartItems)) {
         setCartItems(queryData);
-        makeTotal(cartItems);
       }
+      await makeTotal(cartItems);
     }
   };
-  const makeTotal = items => {
+  const makeTotal = async items => {
     console.log(items);
     if (items.length > 0) {
       let subtotal = 0;
@@ -71,8 +72,8 @@ export const CartList = props => {
     Toast.show({
       type: 'success',
       text1: 'Thành công',
-      text2: 'Xóa sản phẩm thành công'
-    })
+      text2: 'Xóa sản phẩm thành công',
+    });
   };
   return (
     <View style={screenStyles.mainContainer}>
@@ -180,7 +181,15 @@ export const CartList = props => {
           <AppButton
             title={'Checkout'}
             onPress={() => {
-              props.navigation.navigate(Routes.CHECKOUT_DELIVERY);
+              if (cartItems && cartItems.length > 0) {
+                props.navigation.navigate(Routes.CHECKOUT_DELIVERY);
+              } else {
+                Toast.show({
+                  type: 'error',
+                  text1: 'Lỗi',
+                  text2: 'Vui lòng thêm sản phảm',
+                });
+              }
             }}
           />
         </View>
