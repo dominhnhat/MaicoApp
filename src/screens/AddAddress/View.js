@@ -39,6 +39,7 @@ export const AddAddress = props => {
   const [phone, setPhone] = useState('');
   const [street, setStreet] = useState('');
   const [ward, setWard] = useState('');
+  const [district, setDistrict] = useState('');
   const [city, setCity] = useState('');
   const [apartment, setApartment] = useState('');
   const [apartmentNumber, setApartmentNumber] = useState('');
@@ -134,6 +135,7 @@ export const AddAddress = props => {
                 setWard(apartmentList[selectedApartmentIndex].ward);
                 setStreet(apartmentList[selectedApartmentIndex].street);
                 setApartment(apartmentList[selectedApartmentIndex].name);
+                setDistrict(apartmentList[selectedApartmentIndex].district);
 
                 setIsOverlayVisible(false);
             }}/>
@@ -236,6 +238,16 @@ export const AddAddress = props => {
                   value={ward}
                   onChangeText={ward => {
                     setWard(ward);
+                  }}
+                />
+                <AppInput
+                  textInputRef={r => (inputRef = r)}
+                  {...globalStyles.secondaryInputStyle}
+                  leftIcon={IconNames.MapMarkerAlt}
+                  placeholder={'District'}
+                  value={district}
+                  onChangeText={district => {
+                    setDistrict(district);
                   }}
                 />
 

@@ -23,7 +23,7 @@ export const AddressContentItem = props => {
   const [name, setName] = useState(props.data.name);
   const [street, setStreet] = useState(props.data.street);
   const [city, setCity] = useState(props.data.city);
-  // const [district, setdistrict] = useState(props.data.district);
+  const [district, setDistrict] = useState(props.data.district);
   const [ward, setWard] = useState(props.data.ward);
   const [apartment, setApartment] = useState(props.data.apartment);
   const [apartmentNumber, setApartmentNumber] = useState(
@@ -73,6 +73,15 @@ export const AddressContentItem = props => {
       <AppInput
         textInputRef={r => (inputRef = r)}
         leftIcon={IconNames.MapMarkerAlt}
+        placeholder={'District'}
+        value={district}
+        onChangeText={district => {
+          setDistrict(district);
+        }}
+      />
+      <AppInput
+        textInputRef={r => (inputRef = r)}
+        leftIcon={IconNames.MapMarkerAlt}
         placeholder={'City'}
         value={city}
         onChangeText={city => {
@@ -113,6 +122,7 @@ export const AddressContentItem = props => {
               city,
               street,
               ward,
+              district,
               apartment_number:  apartmentNumber,
               apartment_name:  apartment,
               contact: phone,

@@ -41,6 +41,7 @@ async function updateAddress(address) {
           receiver: address.receiver,
           city: address.city,
           ward: address.ward,
+          district: address.district,
           street: address.street,
           apartment_number: address.apartment_number,
           apartment_name: address.apartment_name,

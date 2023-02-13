@@ -17,7 +17,7 @@ export const PopularDeals = props => {
         return (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={Globals.foodItems}
+            data={props.route.params.items}
             numColumns={2}
             renderItem={({item, index}) => {
               if (index === 0 || index === 1) {
