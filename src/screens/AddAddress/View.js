@@ -1,4 +1,4 @@
-import React, {useRef, useState,  useEffect} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {useColorScheme, View} from 'react-native';
 import {Text} from 'react-native-elements';
 
@@ -14,7 +14,7 @@ import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
 import IconNames from '../../../branding/carter/assets/IconNames';
 import {addAddress} from '../../services/user-address-services';
 import {getUserId} from '../../services/user-services';
-
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 export const AddAddress = props => {
   //Input reference for KeyboardAwareScrollView
   let inputRef = useRef();
@@ -151,7 +151,7 @@ export const AddAddress = props => {
             <View style={screenStyles.bottomButton}>
               <AppButton
                 title={'Add Address'}
-                onPress={ async () => {
+                onPress={async () => {
                   await addAddress({
                     user_id: userId,
                     receiver,
@@ -163,6 +163,11 @@ export const AddAddress = props => {
                     contact: phone,
                     is_default: false,
                   });
+                  Toast.show({
+                    type: 'success',
+                    text1:'Thành công',
+                    text2:'Thêm địa chỉ thành công'
+                  })
                 }}
               />
             </View>
