@@ -1,15 +1,15 @@
 const colors = {
   primaryGreenColor: '#FF385D',
-  primaryDarkGreenColor: '#57a614',
+  primaryDarkGreenColor: '#FFFFFF',
 
   //Active/Inactive tint color
   activeColor: '#FF385D',
   inactiveColor: '#E2E6EC',
 
-  //Background color
+  //Background color #ffdee4
   primaryBackground: '#ffffff',
   secondaryBackground: '#F3F5F8',
-  tertiaryBackground: '#EDF8E4',
+  tertiaryBackground: '#ffdee4',
   quaternaryBackground: '#FFE6E6',
 
   //Header color
