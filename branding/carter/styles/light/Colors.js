@@ -1,9 +1,9 @@
 const colors = {
-  primaryGreenColor: '#6cc51d',
+  primaryGreenColor: '#FF385D',
   primaryDarkGreenColor: '#57a614',
 
   //Active/Inactive tint color
-  activeColor: '#6cc51d',
+  activeColor: '#FF385D',
   inactiveColor: '#E2E6EC',
 
   //Background color
@@ -26,18 +26,18 @@ const colors = {
   headingColor: '#3B3B43',
   headingSecondaryColor: '#FF4344',
   subHeadingColor: '#697281',
-  subHeadingSecondaryColor: '#6cc51d',
+  subHeadingSecondaryColor: '#FF385D',
   subHeadingTertiaryColor: '#F3F5F8',
   subHeadingQuaternaryColor: '#1D68C5',
 
   //Button
-  buttonBackground: '#6cc51d',
+  buttonBackground: '#FF385D',
   buttonColor: '#ffffff',
-  primaryShadowStart: '#6cc51d4d',
-  primaryShadowFinal: '#6cc51d1a',
+  primaryShadowStart: '#FF385D4d',
+  primaryShadowFinal: '#FF385D1a',
 
   //Switch
-  switchActiveBackground: '#6cc51d',
+  switchActiveBackground: '#FF385D',
   switchInActiveBackground: '#ffffff',
   switchBorder: '#B3BCCA',
 
@@ -49,7 +49,7 @@ const colors = {
   heartEmpty: '#B3BCCA',
 
   //Pagination Color
-  paginationDotActiveColor: '#6cc51d',
+  paginationDotActiveColor: '#FF385D',
   paginationDotInActiveColor: '#697281',
 
   //Rating
@@ -67,7 +67,7 @@ const colors = {
   white: '#ffffff',
 
   //Custom Colors
-  bannerGreenPrimary: '#6cc51d',
+  bannerGreenPrimary: '#FF385D',
   bannerGreenSecondary: '#e2f5d2',
   bannerGreenTertiary: '#f0f9e7',
 
