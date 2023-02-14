@@ -40,17 +40,17 @@ export const FoodItem = props => {
     });
   };
 
-  // const _cartCountChange = behavior => {
-  //   if (behavior === 'add') {
-  //     setCartCount(cartCount => {
-  //       return cartCount + 1;
-  //     });
-  //   } else if (behavior === 'subtract' && !(cartCount === 0)) {
-  //     setCartCount(cartCount => {
-  //       return cartCount - 1;
-  //     });
-  //   }
-  // };
+  const _cartCountChange = behavior => {
+    if (behavior === 'add') {
+      setCartCount(cartCount => {
+        return cartCount + 1;
+      });
+    } else if (behavior === 'subtract' && !(cartCount === 0)) {
+      setCartCount(cartCount => {
+        return cartCount - 1;
+      });
+    }
+  };
 
   const {title, image, price, weight, discount, navigation} = props;
 
@@ -65,7 +65,7 @@ export const FoodItem = props => {
               </View>
             )}
           </View>
-          <View style={itemStyles.favouriteContainer}>
+          {/* <View style={itemStyles.favouriteContainer}>
             <TouchableOpacity
               onPress={() => {
                 _favouriteChange();
@@ -79,7 +79,7 @@ export const FoodItem = props => {
                 />
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
 
         <TouchableWithoutFeedback
@@ -95,7 +95,63 @@ export const FoodItem = props => {
               <Text style={itemStyles.titleText}>{title}</Text>
               <Text style={itemStyles.weightText}>{weight}</Text>
             </View>
+            <View style={itemStyles.bottomContainer}>
+              {cartCount === 0 ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate(Routes.PRODUCT_DETAIL, {
+                      item: props,
+                    });
+                  }}
+                  style={itemStyles.addToCartContainer}>
+                  <SvgIcon
+                    type={IconNames.BagShopping}
+                    width={20}
+                    height={20}
+                    color={colors.activeColor}
+                    style={itemStyles.addCartIcon}
+                  />
 
+                  <Text style={itemStyles.addCartText}>{'Add to cart'}</Text>
+                </TouchableOpacity>
+              ) : (
+                <View style={itemStyles.cartUpdateContainer}>
+                  <TouchableOpacity
+                    style={[
+                      itemStyles.cartUpdateActionContainer,
+                      {borderRightWidth: 1},
+                    ]}
+                    onPress={() => {
+                      _cartCountChange('subtract');
+                    }}>
+                    <SvgIcon
+                      type={IconNames.Minus}
+                      width={15}
+                      height={15}
+                      color={colors.activeColor}
+                    />
+                  </TouchableOpacity>
+
+                  <Text style={itemStyles.cartNumberText}>{cartCount}</Text>
+
+                  <TouchableOpacity
+                    style={[
+                      itemStyles.cartUpdateActionContainer,
+                      {borderLeftWidth: 1},
+                    ]}
+                    onPress={() => {
+                      _cartCountChange('add');
+                    }}>
+                    <SvgIcon
+                      type={IconNames.Plus}
+                      width={15}
+                      height={15}
+                      color={colors.activeColor}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </View>

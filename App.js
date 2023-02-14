@@ -5,10 +5,11 @@ import {
   SafeAreaConsumer,
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
+import {Text, View} from 'react-native';
 import Globals from './src/utils/Globals';
 import {useColorScheme} from 'react-native';
 import AppConfig from './branding/App_config';
-import Toast from 'react-native-toast-message';
+import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
 const lightColors = AppConfig.lightColors.default;
 const darkColors = AppConfig.darkColors.default;
 
@@ -24,7 +25,55 @@ const LightTheme = {
 
 export const App = props => {
   const scheme = useColorScheme();
-
+  const toastConfig = {
+    /*
+      Overwrite 'success' type,
+      by modifying the existing `BaseToast` component
+    */
+    success: props => (
+      <BaseToast
+        {...props}
+        style={{borderLeftColor: 'green', width: '100%'}}
+        contentContainerStyle={{paddingHorizontal: 15}}
+        text1Style={{
+          fontSize: 20,
+          fontWeight: '400',
+        }}
+      />
+    ),
+    /*
+      Overwrite 'error' type,
+      by modifying the existing `ErrorToast` component
+    */
+    error: props => (
+      <ErrorToast
+        {...props}
+        style={{
+          borderLeftColor: 'red',
+          width: '100%',
+        }}
+        text1Style={{
+          fontSize: 20,
+        }}
+        text2Style={{
+          fontSize: 15,
+        }}
+      />
+    ),
+    /*
+      Or create a completely new type - `tomatoToast`,
+      building the layout from scratch.
+  
+      I can consume any custom `props` I want.
+      They will be passed when calling the `show` method (see below)
+    */
+    tomatoToast: ({text1, props}) => (
+      <View style={{height: 60, width: '100%', backgroundColor: 'tomato'}}>
+        <Text>{text1}</Text>
+        <Text>{props.uuid}</Text>
+      </View>
+    ),
+  };
   return (
     <>
       <NavigationContainer theme={scheme === 'dark' ? DarkTheme : LightTheme}>
@@ -38,7 +87,7 @@ export const App = props => {
           </SafeAreaConsumer>
         </SafeAreaProvider>
       </NavigationContainer>
-      <Toast />
+      <Toast config={toastConfig} />
     </>
   );
 };

@@ -252,16 +252,18 @@ export const MyOrders = props => {
                   ]}
                 />
 
-                <Divider
-                  style={[
-                    screenStyles.contentItemLine,
-                    {
-                      backgroundColor: item.isNextEnabled
-                        ? colors.subHeadingSecondaryColor
-                        : colors.borderColorLight,
-                    },
-                  ]}
-                />
+                {status.length - 1 !== index && (
+                  <Divider
+                    style={[
+                      screenStyles.contentItemLine,
+                      {
+                        backgroundColor: item.isNextEnabled
+                          ? colors.subHeadingSecondaryColor
+                          : colors.borderColorLight,
+                      },
+                    ]}
+                  />
+                )}
               </View>
               <Text style={screenStyles.contentItemLeftText}>{item.name}</Text>
               <Text style={screenStyles.contentItemRightText}>
