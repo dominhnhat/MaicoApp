@@ -44,7 +44,7 @@ export function Variant3BottomTabBar({state, descriptors, navigation}) {
             break;
 
           case 1:
-            icon = IconNames.Heart;
+            icon = IconNames.BoxOpen;
             break;
 
           case 2:
