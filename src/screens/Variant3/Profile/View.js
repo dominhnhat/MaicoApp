@@ -53,6 +53,7 @@ export const Variant3Profile = props => {
       <TouchableWithoutFeedback
         key={index}
         onPress={() => {
+          console.log('Press')
           item.onPress();
         }}>
         <View style={screenStyles.cardListingItemContainer}>
