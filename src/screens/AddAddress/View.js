@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect} from 'react';
-import {useColorScheme, View, TouchableWithoutFeedback} from 'react-native';
+import {useColorScheme, View, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import {Overlay, Text} from 'react-native-elements';
 
 import BaseView from '../BaseView';
@@ -95,60 +95,65 @@ export const AddAddress = props => {
   const apartmentSelectorOverlay = () => {
     return (
       <Overlay isVisible={isOverlayVisible}>
-        <View
-          style={{
-            justifyContent: 'space-between', //Centered horizontally
-            alignItems: 'center', //Centered vertically
-            flexDirection: 'row',
-            marginBottom: 10,
-          }}>
-          <Text
+      
+          <View
             style={{
-              fontFamily: fonts.RUBIK_MEDIUM,
-              fontSize: Typography.P1,
-              color: '#000000',
-              textAlign: 'center',
+              justifyContent: 'space-between', //Centered horizontally
+              alignItems: 'center', //Centered vertically
+              flexDirection: 'row',
+              marginBottom: 10,
             }}>
-            Chọn chung cư bạn ở
-          </Text>
-          <SvgIcon
-            style={{}}
-            color={'#000000'}
-            width={20}
-            height={20}
-            type={IconNames.Close}
-            onPress={() => {
-              setIsOverlayVisible(false);
-            }}
-          />
-        </View>
-
-        <View style={screenStyles.container}>
-          <View style={screenStyles.upperContainer}>
-            {apartmentList &&
-              apartmentList.map((item, index) => {
-                return renderApartmentContainer(
-                  item.name,
-                  `${item.street}, ${item.city}`,
-                  index,
-                );
-              })}
-          </View>
-          <View style={screenStyles.bottomButton}>
-            <AppButton
-              title={'Xác nhận'}
-              onPress={() => {
-                setCity(apartmentList[selectedApartmentIndex].city);
-                setWard(apartmentList[selectedApartmentIndex].ward);
-                setStreet(apartmentList[selectedApartmentIndex].street);
-                setApartment(apartmentList[selectedApartmentIndex].name);
-                setDistrict(apartmentList[selectedApartmentIndex].district);
-
+            <Text
+              style={{
+                fontFamily: fonts.RUBIK_MEDIUM,
+                fontSize: Typography.P1,
+                color: '#000000',
+                textAlign: 'center',
+              }}>
+              Chọn chung cư bạn ở
+            </Text>
+            <TouchableHighlight  onPress={() => {
                 setIsOverlayVisible(false);
-              }}
+              }}>
+            <SvgIcon
+              style={{}}
+              color={'#000000'}
+              width={20}
+              height={20}
+              type={IconNames.Close}
+            
             />
+            </TouchableHighlight>
+            
           </View>
-        </View>
+
+          <View style={screenStyles.container}>
+            <View style={screenStyles.upperContainer}>
+              {apartmentList &&
+                apartmentList.map((item, index) => {
+                  return renderApartmentContainer(
+                    item.name,
+                    `${item.street}, ${item.city}`,
+                    index,
+                  );
+                })}
+            </View>
+            <View style={screenStyles.bottomButton}>
+              <AppButton
+                title={'Xác nhận'}
+                onPress={() => {
+                  setCity(apartmentList[selectedApartmentIndex].city);
+                  setWard(apartmentList[selectedApartmentIndex].ward);
+                  setStreet(apartmentList[selectedApartmentIndex].street);
+                  setApartment(apartmentList[selectedApartmentIndex].name);
+                  setDistrict(apartmentList[selectedApartmentIndex].district);
+
+                  setIsOverlayVisible(false);
+                }}
+              />
+            </View>
+          </View>
+        
       </Overlay>
     );
   };
@@ -171,7 +176,7 @@ export const AddAddress = props => {
               showsVerticalScrollIndicator={false}>
               <View>
                 <AppButton
-                  title={'Lala'}
+                  title={'Chọn chung cư'}
                   onPress={() => {
                     setIsOverlayVisible(true);
                   }}
@@ -207,9 +212,9 @@ export const AddAddress = props => {
                   leftIcon={IconNames.Globe}
                   placeholder={'Apartment'}
                   value={apartment}
-                  // onChangeText={apartment => {
-                  //   setApartment(apartment);
-                  // }}
+                  onChangeText={apartment => {
+                    setApartment(apartment);
+                  }}
                   onPressOut={() => {
                     setIsOverlayVisible(true);
                   }}

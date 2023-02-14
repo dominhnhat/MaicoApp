@@ -56,6 +56,8 @@ export const AddressItem = props => {
     onPress,
   } = props;
 
+  const contentWidth = props.contentWidth || '55%';
+
   const touchableComponent = child => {
     return (
       <TouchableOpacity
@@ -137,7 +139,7 @@ export const AddressItem = props => {
           <View>
             <Text style={itemStyles.titleText}>{item.name}</Text>
             <Text
-              style={[itemStyles.addressText, {width: '85%'}]}
+              style={[itemStyles.addressText, {width: contentWidth}]}
               numberOfLines={3}>
               {item.apartment +
                 ' - ' +

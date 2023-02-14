@@ -51,6 +51,7 @@ export const MyAddress = props => {
             isTouchable={false}
             isActive={isActive}
             showAnimatedIcon
+            contentWidth={'85%'}
             item={section}
           />
         </View>
