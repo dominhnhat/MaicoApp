@@ -74,6 +74,7 @@ function dateTimeFormat(created_at) {
   return moment(created_at).format('DD-MM-YYYY');
 }
 function sumOrderValue(orderItems) {
+  console.log(orderItems);
   let result = 0;
   orderItems.forEach(c => {
     result += c.price;

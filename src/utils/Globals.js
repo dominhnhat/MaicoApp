@@ -1313,12 +1313,12 @@ class Globals {
         id: 8,
         icon: IconNames.PowerOff,
         title: 'Sign out',
-        onPress: () =>
-        async () => {
+        onPress:async () => {
+          console.log('Sign out');
           try {
             await AsyncStorage.removeItem('@user');
           } catch (e) {
-            // remove error
+            console.log(e);
           }
           navigation.dispatch(
             CommonActions.reset({

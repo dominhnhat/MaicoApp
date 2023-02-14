@@ -4,6 +4,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Accordion from 'react-native-collapsible/Accordion';
 import BaseView from '../BaseView';
 import {Divider, Text} from 'react-native-elements';
+import moment from 'moment';
 import {Styles} from './Styles';
 import Easing from 'react-native/Libraries/Animated/Easing';
 import Globals from '../../utils/Globals';
@@ -221,12 +222,12 @@ export const MyOrders = props => {
             b => b.status.status === status[index + 1]?.name,
           );
         }
-
+        const formatDate = orderLogComperative
+          ? moment(orderLogComperative.updated_at).format('DD-MM-YYYY')
+          : 'Đang chờ';
         return {
           name: c.name,
-          updated_at: orderLogComperative
-            ? orderLogComperative.updated_at
-            : 'Đang chờ',
+          updated_at: formatDate,
           isSelfEnabled: orderLogComperative ? true : false,
           isNextEnabled: nextOrderLogComperative ? true : false,
           level: c.level,
