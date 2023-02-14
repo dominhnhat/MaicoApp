@@ -29,7 +29,10 @@ import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareSta
 import {getAllCategory} from '../../../services/category-services';
 import {getAllProduct} from '../../../services/product-services';
 import {CategoryItems} from '../../CategoryItems/View';
-
+import {
+  formatCurrency,
+  getSupportedCurrencies,
+} from 'react-native-format-currency';
 //Constants
 const slider_data = [
   {
@@ -59,7 +62,6 @@ export const Variant3Home = props => {
   const [categoryFoodItemList, setCategoryFoodItemList] = useState(
     Globals.foodItems.slice(0, 4),
   );
-
   const [categoryItems, setCategoryItems] = useState([]);
   const [foodItems, setfoodItems] = useState([]);
 
@@ -292,7 +294,6 @@ export const Variant3Home = props => {
           renderItem={({item}) => (
             <FoodItem
               id={item.id}
-              
               title={item.title}
               image={item.image}
               bigImage={item.bigImage}

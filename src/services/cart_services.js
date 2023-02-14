@@ -1,5 +1,8 @@
 import supabase from './supabase';
-
+import {
+  formatCurrency,
+  getSupportedCurrencies,
+} from 'react-native-format-currency';
 async function getCartItemsByUserId(id) {
   try {
     let {data, error} = await supabase
@@ -66,18 +69,25 @@ async function getCartItemForShow(id) {
     if (error) {
       throw error;
     }
-    return data.map(c => {
-      return {
-        id: c.id,
-        title: c.product.name,
-        image: c.product.thumbnail,
-        bigImage: c.product.thumbnail,
-        price: c.product.price,
-        weight: c.product.unit,
-        cartCount: c.quantity,
-        product_id: c.product.id,
-      };
-    });
+
+    return {
+      data: data.map(c => {
+        const [valueFormattedWithSymbol, valueFormattedWithoutSymbol, symbol] =
+          formatCurrency({amount: Number(c.product.price), code: 'VND'});
+        return {
+          id: c.id,
+          title: c.product.name,
+          image: c.product.thumbnail,
+          bigImage: c.product.thumbnail,
+          priceString: valueFormattedWithSymbol,
+          price: c.product.price,
+          weight: c.product.unit,
+          cartCount: c.quantity,
+          product_id: c.product.id,
+        };
+      }),
+      total: sumCartValue(data),
+    };
   } catch (error) {
     throw error;
   }
@@ -95,6 +105,15 @@ async function clearCart(userId) {
   } catch (error) {
     throw error;
   }
+}
+function sumCartValue(cartItems) {
+  let result = 0;
+  cartItems.forEach(c => {
+    result += c.product.price;
+  });
+  const [valueFormattedWithSymbol, valueFormattedWithoutSymbol, symbol] =
+    formatCurrency({amount: Number(result), code: 'VND'});
+  return valueFormattedWithSymbol;
 }
 export {
   getCartItemsByUserId,

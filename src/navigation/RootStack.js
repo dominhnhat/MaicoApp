@@ -237,7 +237,7 @@ function bottomTabsVariant3() {
   return (
     <Tab.Navigator tabBar={props => <Variant3BottomTabBar {...props} />}>
       <Tab.Screen name={Routes.HOME_VARIANT3} component={Variant3Home} />
-      <Tab.Screen name={Routes.FAVOURITE} component={Favourites} />
+      <Tab.Screen name={Routes.MY_ORDERS} component={MyOrders} />
       <Tab.Screen name={Routes.PROFILE3} component={Variant3Profile} />
       <Tab.Screen name={Routes.CART} component={CartList} />
     </Tab.Navigator>

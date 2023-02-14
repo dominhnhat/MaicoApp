@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {FlatList, useColorScheme, View} from 'react-native';
-
 import BaseView from '../BaseView';
 import Routes from '../../navigation/Routes';
 import {CartItem} from '../../components/Application/CartItem/View';
@@ -27,7 +26,7 @@ export const CartList = props => {
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
   const screenStyles = Styles(globalStyles, colors);
   const [cartItems, setCartItems] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState('');
   const [profile, setProfile] = useState({});
   const isForcused = useIsFocused();
   useEffect(() => {
@@ -50,19 +49,21 @@ export const CartList = props => {
     }
   };
   const getCartItem = async () => {
-    let queryData = await getCartItemForShow(profile.id);
-    if (queryData) {
-      if (JSON.stringify(queryData) !== JSON.stringify(cartItems)) {
-        setCartItems(queryData);
-        await makeTotal(queryData);
+    let {data, total} = await getCartItemForShow(profile.id);
+    if (data) {
+      console.log(total);
+      if (JSON.stringify(data) !== JSON.stringify(cartItems)) {
+        setCartItems(data);
+        setTotal(total);
       }
     }
   };
   const makeTotal = async items => {
-    console.log(items);
+    console.log('alooo');
     if (items.length > 0) {
       let subtotal = 0;
       items.map(item => {
+        console.log(typeof item.price);
         subtotal += item.price * item.cartCount;
       });
       setTotal(subtotal);
@@ -114,7 +115,7 @@ export const CartList = props => {
                         title={item.title}
                         image={item.image}
                         bigImage={item.bigImage}
-                        price={item.price}
+                        price={item.priceString}
                         weight={item.weight}
                         discount={item.discount}
                         cartCount={item.cartCount}
@@ -133,7 +134,7 @@ export const CartList = props => {
                         title={item.title}
                         image={item.image}
                         bigImage={item.bigImage}
-                        price={item.price}
+                        price={item.priceString}
                         weight={item.weight}
                         discount={item.discount}
                         cartCount={item.cartCount}
@@ -151,7 +152,7 @@ export const CartList = props => {
                       title={item.title}
                       image={item.image}
                       bigImage={item.bigImage}
-                      price={item.price}
+                      price={item.priceString}
                       weight={item.weight}
                       discount={item.discount}
                       cartCount={item.cartCount}
