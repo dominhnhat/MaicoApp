@@ -49,7 +49,7 @@ export const Styles = function (scheme, colors) {
 
     favouriteContainer: {
       width: '50%',
-      paddingTop: wp(2),
+      paddingTop: wp(4),
       paddingEnd: wp(2),
       justifyContent: 'center',
       alignItems: 'flex-end',

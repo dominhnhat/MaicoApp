@@ -65,8 +65,8 @@ export const FoodItem = props => {
               </View>
             )}
           </View>
-          {/* <View style={itemStyles.favouriteContainer}>
-            <TouchableOpacity
+          <View style={itemStyles.favouriteContainer}>
+            {/* <TouchableOpacity
               onPress={() => {
                 _favouriteChange();
               }}>
@@ -78,8 +78,8 @@ export const FoodItem = props => {
                   color={favourite ? colors.heartFilled : colors.heartEmpty}
                 />
               </View>
-            </TouchableOpacity>
-          </View> */}
+            </TouchableOpacity> */}
+          </View>
         </View>
 
         <TouchableWithoutFeedback
