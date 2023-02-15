@@ -13,7 +13,7 @@ import {
   verifyOtp,
   getUserByPhone,
   loginWithOtp,
-} from '../../services/user_services';
+} from '../../services/user-services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 export const VerifyPhoneOTP = props => {
