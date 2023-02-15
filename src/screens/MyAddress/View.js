@@ -30,9 +30,11 @@ export const MyAddress = props => {
   }, []);
 
   useEffect(() => {
-    getAddressesByUserId(userId).then(c => {
-      getaddresses(c);
-    });
+    if (userId !== 0) {
+      getAddressesByUserId(userId).then(c => {
+        getaddresses(c);
+      });
+    }
   }, [userId]);
   const getProfile = async () => {
     let userValue = await AsyncStorage.getItem('@user');
