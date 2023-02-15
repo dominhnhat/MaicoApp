@@ -1,24 +1,24 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {useColorScheme, View, TouchableWithoutFeedback} from 'react-native';
-import {Overlay, Text} from 'react-native-elements';
+import React, { useRef, useState, useEffect } from 'react';
+import { useColorScheme, View, TouchableWithoutFeedback } from 'react-native';
+import { Overlay, Text } from 'react-native-elements';
 
 import BaseView from '../BaseView';
 import AppInput from '../../components/Application/AppInput/View';
 import AppButton from '../../components/Application/AppButton/View';
 import AppHeader from '../../components/Application/AppHeader/View';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
-import {CustomSwitch} from '../../components/Global/CustomSwitch/View';
-import {Styles} from './Styles';
-import {useTheme} from '@react-navigation/native';
-import {commonDarkStyles} from '../../../branding/carter/styles/dark/Style';
-import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { CustomSwitch } from '../../components/Global/CustomSwitch/View';
+import { Styles } from './Styles';
+import { useTheme } from '@react-navigation/native';
+import { commonDarkStyles } from '../../../branding/carter/styles/dark/Style';
+import { commonLightStyles } from '../../../branding/carter/styles/light/Style';
 import IconNames from '../../../branding/carter/assets/IconNames';
-import {addAddress} from '../../services/user-address-services';
-import {getUserId} from '../../services/user-services';
-import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import {getAllApartment} from '../../services/apartment-services';
-import {SvgIcon} from '../../components/Application/SvgIcon/View';
-import {ListItem} from 'react-native-elements';
+import { addAddress } from '../../services/user-address-services';
+import { getUserId } from '../../services/user-services';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { getAllApartment } from '../../services/apartment-services';
+import { SvgIcon } from '../../components/Application/SvgIcon/View';
+import { ListItem } from 'react-native-elements';
 import AppConfig from '../../../branding/App_config';
 
 const fonts = AppConfig.fonts.default;
@@ -30,7 +30,7 @@ export const AddAddress = props => {
 
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const screenStyles = Styles(colors);
   const globalStyles =
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
@@ -82,7 +82,7 @@ export const AddAddress = props => {
               borderColor: colors.activeColor,
             },
           ]}>
-          <View style={{width: '90%'}}>
+          <View style={{ width: '90%' }}>
             <Text style={screenStyles.deliveryHeader}>{title}</Text>
             <Text style={screenStyles.deliveryDescription}>{description}</Text>
           </View>
@@ -156,7 +156,7 @@ export const AddAddress = props => {
   return (
     <BaseView
       navigation={props.navigation}
-      title={'Add Address'}
+      title={'Thêm Địa Chỉ'}
       headerWithBack
       applyBottomSafeArea
       childView={() => {
@@ -180,7 +180,7 @@ export const AddAddress = props => {
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
                   leftIcon={IconNames.CircleUser}
-                  placeholder={'Receiver'}
+                  placeholder={'Người nhận'}
                   value={receiver}
                   onChangeText={receiver => {
                     setReceiver(receiver);
@@ -190,8 +190,8 @@ export const AddAddress = props => {
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.Envelope}
-                  placeholder={'Phone'}
+                  leftIcon={IconNames.PhoneFlip}
+                  placeholder={'Số điện thoại'}
                   value={phone}
                   // keyboardType={'email-address'}
                   // keyboardType={'email-address'}
@@ -204,8 +204,8 @@ export const AddAddress = props => {
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
                   editable={false}
-                  leftIcon={IconNames.Globe}
-                  placeholder={'Apartment'}
+                  leftIcon={IconNames.Apartment}
+                  placeholder={'Chung cư'}
                   value={apartment}
                   // onChangeText={apartment => {
                   //   setApartment(apartment);
@@ -218,8 +218,8 @@ export const AddAddress = props => {
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.Mailbox}
-                  placeholder={'Apartment Number'}
+                  leftIcon={IconNames.ApartmentNumber}
+                  placeholder={'Mã căn'}
                   value={apartmentNumber}
                   onChangeText={apartmentNumber => {
                     setApartmentNumber(apartmentNumber);
@@ -228,8 +228,8 @@ export const AddAddress = props => {
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.PhoneFlip}
-                  placeholder={'Street'}
+                  leftIcon={IconNames.Road}
+                  placeholder={'Đường'}
                   value={street}
                   keyboardType={'phone-pad'}
                   onChangeText={street => {
@@ -241,7 +241,7 @@ export const AddAddress = props => {
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
                   leftIcon={IconNames.MapMarkerAlt}
-                  placeholder={'Ward'}
+                  placeholder={'Phường'}
                   value={ward}
                   onChangeText={ward => {
                     setWard(ward);
@@ -251,7 +251,7 @@ export const AddAddress = props => {
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
                   leftIcon={IconNames.MapMarkerAlt}
-                  placeholder={'District'}
+                  placeholder={'Quận'}
                   value={district}
                   onChangeText={district => {
                     setDistrict(district);
@@ -261,8 +261,8 @@ export const AddAddress = props => {
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
-                  leftIcon={IconNames.Map}
-                  placeholder={'City'}
+                  leftIcon={IconNames.MapMarkerAlt}
+                  placeholder={'Thành phố'}
                   value={city}
                   onChangeText={city => {
                     setCity(city);
@@ -281,7 +281,7 @@ export const AddAddress = props => {
 
             <View style={screenStyles.bottomButton}>
               <AppButton
-                title={'Add Address'}
+                title={'Thêm địa chỉ'}
                 onPress={async () => {
                   await addAddress({
                     user_id: userId,

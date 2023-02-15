@@ -1,19 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import {Animated, ScrollView, useColorScheme, View} from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import React, { useState, useEffect } from 'react';
+import { Animated, ScrollView, useColorScheme, View } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Accordion from 'react-native-collapsible/Accordion';
 import BaseView from '../BaseView';
-import {Divider, Text} from 'react-native-elements';
-import {Styles} from './Styles';
+import { Divider, Text } from 'react-native-elements';
+import { Styles } from './Styles';
 import Easing from 'react-native/Libraries/Animated/Easing';
 import Globals from '../../utils/Globals';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import AppConfig from '../../../branding/App_config';
-import {SvgIcon} from '../../components/Application/SvgIcon/View';
+import { SvgIcon } from '../../components/Application/SvgIcon/View';
 import IconNames from '../../../branding/carter/assets/IconNames';
-import {getUserId} from '../../services/user-services';
-import {getAllOrderByUserId} from '../../services/order-services';
-import {getAllStatus} from '../../services/status-services';
+import { getUserId } from '../../services/user-services';
+import { getAllOrderByUserId } from '../../services/order-services';
+import { getAllStatus } from '../../services/status-services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const assets = AppConfig.assets.default;
 
@@ -34,7 +34,7 @@ const deActiveAnimConfig = {
 export const MyOrders = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const screenStyles = Styles(scheme, colors);
 
   //Internal States
@@ -107,7 +107,7 @@ export const MyOrders = props => {
             <Text
               style={[
                 screenStyles.headerTitleText,
-                section.isOrderDelivered && {color: colors.subHeadingColor},
+                section.isOrderDelivered && { color: colors.subHeadingColor },
               ]}>
               {section.orderNo}
             </Text>
@@ -148,7 +148,7 @@ export const MyOrders = props => {
               <Animated.Image
                 source={assets.drop_down_icon}
                 style={[
-                  {transform: [{rotate: spin}]},
+                  { transform: [{ rotate: spin }] },
                   screenStyles.headerRightIcon,
                 ]}
                 resizeMode={'contain'}
@@ -288,7 +288,7 @@ export const MyOrders = props => {
 
   return (
     <BaseView
-      title={'My Orders'}
+      title={'Đơn Hàng Của Tôi'}
       navigation={props.navigation}
       showAppHeader={true}
       headerWithBack={!props.hideBack}

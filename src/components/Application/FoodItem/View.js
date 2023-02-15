@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   TouchableOpacity,
@@ -7,16 +7,16 @@ import {
   View,
 } from 'react-native';
 
-import {Text} from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import Routes from '../../../navigation/Routes';
-import {Styles} from './Styles';
-import {useTheme} from '@react-navigation/native';
-import {SvgIcon} from '../SvgIcon/View';
+import { Styles } from './Styles';
+import { useTheme } from '@react-navigation/native';
+import { SvgIcon } from '../SvgIcon/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 
 export const FoodItem = props => {
   //Theme based styling and colors
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const scheme = useColorScheme();
   const itemStyles = Styles(scheme, colors);
 
@@ -52,7 +52,7 @@ export const FoodItem = props => {
     }
   };
 
-  const {title, image, price, weight, discount, navigation} = props;
+  const { title, image, price, weight, discount, navigation } = props;
 
   return (
     <View>
@@ -89,7 +89,7 @@ export const FoodItem = props => {
             });
           }}>
           <View style={[itemStyles.mainContainer]}>
-            <Image source={{uri: image}} style={itemStyles.foodItemImage} />
+            <Image source={{ uri: image }} style={itemStyles.foodItemImage} />
             <View style={itemStyles.infoContainer}>
               <Text style={itemStyles.priceText}>{price}</Text>
               <Text style={itemStyles.titleText}>{title}</Text>
@@ -112,14 +112,14 @@ export const FoodItem = props => {
                     style={itemStyles.addCartIcon}
                   />
 
-                  <Text style={itemStyles.addCartText}>{'Add to cart'}</Text>
+                  <Text style={itemStyles.addCartText}>{'Thêm vào giỏ hàng'}</Text>
                 </TouchableOpacity>
               ) : (
                 <View style={itemStyles.cartUpdateContainer}>
                   <TouchableOpacity
                     style={[
                       itemStyles.cartUpdateActionContainer,
-                      {borderRightWidth: 1},
+                      { borderRightWidth: 1 },
                     ]}
                     onPress={() => {
                       _cartCountChange('subtract');
@@ -137,7 +137,7 @@ export const FoodItem = props => {
                   <TouchableOpacity
                     style={[
                       itemStyles.cartUpdateActionContainer,
-                      {borderLeftWidth: 1},
+                      { borderLeftWidth: 1 },
                     ]}
                     onPress={() => {
                       _cartCountChange('add');

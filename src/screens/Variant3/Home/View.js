@@ -229,7 +229,7 @@ export const Variant3Home = props => {
                   }}>
                   <View style={screenStyles.sectionHeading}>
                     <Text style={screenStyles.sectionHeadingText}>
-                      Categories
+                      Danh mục
                     </Text>
                     <SvgIcon
                       type={IconNames.ArrowRight}
@@ -275,7 +275,7 @@ export const Variant3Home = props => {
                   }}>
                   <View style={screenStyles.sectionHeading}>
                     <Text style={screenStyles.sectionHeadingText}>
-                      Popular Deals
+                      Tất cả sản phẩm
                     </Text>
 
                     <SvgIcon

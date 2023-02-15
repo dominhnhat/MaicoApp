@@ -1,8 +1,8 @@
 import Routes from '../navigation/Routes';
-import {Animated} from 'react-native';
+import { Animated } from 'react-native';
 import AppConfig from '../../branding/App_config';
 import assets from '../../branding/carter/assets/Assets';
-import {CommonActions} from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import Config from '../../branding/carter/configuration/Config';
 import IconNames from '../../branding/carter/assets/IconNames';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -77,28 +77,22 @@ class Globals {
   //Variant 3 Intro
   static intro3Items = [
     {
-      title: 'Welcome to Carter grocery application',
+      title: 'Maico xin chào!',
       subtitle:
-        'Carter online grocery store is the no. 1 grocery application in the world',
+        'Ứng dụng cung cấp các nhu yếu phẩm cần thiết với thời gian giao nhanh nhất',
       headerImg: assets.intro2_img1,
     },
     {
-      title: 'Best quality grocery at your doorstep',
+      title: 'Giao hàng nhanh chóng',
       subtitle:
-        'Carter online grocery store where we deliver everything on time.',
+        'Các đơn hàng của bạn sẽ được xử lí hoả tốc',
       headerImg: assets.intro2_img2,
     },
     {
-      title: 'Peace of mind same day delivery guaranteed',
+      title: 'Cung cấp nhu yếu phẩm',
       subtitle:
-        'We dispatch all the order within two hours of the order being placed.',
+        'Cung cấp các nhu yếu phẩm cần thiết cho cuộc sống của bạn',
       headerImg: assets.intro2_img3,
-    },
-    {
-      title: 'Big savings with seasonal discounts in all products',
-      subtitle:
-        'We believe in providing best competitive prices to all of our customers.',
-      headerImg: assets.intro2_img4,
     },
   ];
 
@@ -1276,13 +1270,13 @@ class Globals {
       {
         id: 2,
         icon: IconNames.Box,
-        title: 'My Orders',
+        title: 'Đơn hàng',
         onPress: () => navigation.navigate(Routes.MY_ORDERS),
       },
       {
         id: 3,
         icon: IconNames.MapMarkerAlt,
-        title: 'My Addresses',
+        title: 'Địa chỉ',
         onPress: () => navigation.navigate(Routes.My_Address),
       },
       // {
@@ -1312,21 +1306,21 @@ class Globals {
       {
         id: 8,
         icon: IconNames.PowerOff,
-        title: 'Sign out',
+        title: 'Đăng xuất',
         onPress: () =>
-        async () => {
-          try {
-            await AsyncStorage.removeItem('@user');
-          } catch (e) {
-            // remove error
+          async () => {
+            try {
+              await AsyncStorage.removeItem('@user');
+            } catch (e) {
+              // remove error
+            }
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 1,
+                routes: [{ name: Config.SELECTED_VARIANT }],
+              }),
+            );
           }
-          navigation.dispatch(
-            CommonActions.reset({
-              index: 1,
-              routes: [{name: Config.SELECTED_VARIANT}],
-            }),
-          );
-        }
       },
     ];
   };

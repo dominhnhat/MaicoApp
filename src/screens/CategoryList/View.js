@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {FlatList, View} from 'react-native';
-import {CategoryItem} from '../../components/Application/CategoryItem/View';
+import React, { useEffect, useRef, useState } from 'react';
+import { FlatList, View } from 'react-native';
+import { CategoryItem } from '../../components/Application/CategoryItem/View';
 import BaseView from '../BaseView';
 import Globals from '../../utils/Globals';
 import style from './Style';
-import {getAllCategory} from '../../services/category-services';
+import { getAllCategory } from '../../services/category-services';
 
 export const CategoryList = props => {
   // const [categoryItems, setCategoryItems] = useState([]);
@@ -14,11 +14,11 @@ export const CategoryList = props => {
   //     setCategoryItems(c);
   //   });
   // }, []);
-  const {categoryItems} = props.route.params;
+  const { categoryItems } = props.route.params;
   return (
     <BaseView
       navigation={props.navigation}
-      title={'Categories'}
+      title={'Danh mục'}
       headerWithBack
       applyBottomSafeArea
       childView={() => {
@@ -31,7 +31,7 @@ export const CategoryList = props => {
                 return item.id;
               }}
               showsVerticalScrollIndicator={false}
-              renderItem={({item}) => (
+              renderItem={({ item }) => (
                 <CategoryItem
                   navigation={props.navigation}
                   secondaryTitle={item.secondaryTitle}

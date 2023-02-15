@@ -1,30 +1,30 @@
-import React, {useState, useEffect} from 'react';
-import {Image, ScrollView, useColorScheme, View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Image, ScrollView, useColorScheme, View } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import BaseView from '../BaseView';
 import Routes from '../../navigation/Routes';
-import {Divider, Text} from 'react-native-elements';
-import {Styles} from './Styles';
+import { Divider, Text } from 'react-native-elements';
+import { Styles } from './Styles';
 import Globals from '../../utils/Globals';
-import {AddressItem} from '../../components/Application/AddressItem/View';
-import {CardItem} from '../../components/Application/CardItem/View';
+import { AddressItem } from '../../components/Application/AddressItem/View';
+import { CardItem } from '../../components/Application/CardItem/View';
 import AppButton from '../../components/Application/AppButton/View';
-import {useTheme, useIsFocused} from '@react-navigation/native';
-import {commonDarkStyles} from '../../../branding/carter/styles/dark/Style';
-import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
-import {getNextOrderId, addOrder} from '../../services/order-services';
-import {getCartItemForShow, clearCart} from '../../services/cart_services';
+import { useTheme, useIsFocused } from '@react-navigation/native';
+import { commonDarkStyles } from '../../../branding/carter/styles/dark/Style';
+import { commonLightStyles } from '../../../branding/carter/styles/light/Style';
+import { getNextOrderId, addOrder } from '../../services/order-services';
+import { getCartItemForShow, clearCart } from '../../services/cart_services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {addOrderItem} from '../../services/order-item-services';
-import {addOrderLog} from '../../services/order-staus-log-services';
-import {Toast} from 'react-native-toast-message/lib/src/Toast';
+import { addOrderItem } from '../../services/order-item-services';
+import { addOrderLog } from '../../services/order-staus-log-services';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 export const CartSummary = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const globalStyles =
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
   const screenStyles = Styles(scheme, globalStyles, colors);
@@ -92,7 +92,7 @@ export const CartSummary = props => {
           index === cartItems.length - 1 && screenStyles.cartBottomMargin,
         ]}>
         <Image
-          source={{uri: item.image}}
+          source={{ uri: item.image }}
           style={screenStyles.cartItemLeftImage}
         />
 
@@ -115,7 +115,7 @@ export const CartSummary = props => {
       user_id: user.id,
       address_id: props.route.params.address.id,
     });
-    await addOrderLog({order_id: orderId});
+    await addOrderLog({ order_id: orderId });
   };
   const addOrderItems = async () => {
     try {
@@ -148,18 +148,18 @@ export const CartSummary = props => {
   return (
     <BaseView
       navigation={props.navigation}
-      title={'Cart Summary'}
+      title={'Kiểm Tra Đơn Hàng'}
       childContainerStyle={screenStyles.baseViewChildContainerStyle}
       headerWithBack
       childView={() => {
         return (
           <View style={screenStyles.container}>
             <ScrollView style={screenStyles.listContainer}>
-              <View style={{marginTop: hp('3')}}>
+              <View style={{ marginTop: hp('3') }}>
                 <AddressItem
                   isActive={false}
                   item={props.route.params.address}
-                  onPress={() => {}}
+                  onPress={() => { }}
                 />
               </View>
               {cartItems.map((item, index) => {
@@ -173,7 +173,7 @@ export const CartSummary = props => {
                 <View
                   style={[
                     screenStyles.receiptItemContainer,
-                    {marginBottom: 0},
+                    { marginBottom: 0 },
                   ]}>
                   <Text style={screenStyles.boldLabelText}>Total</Text>
                   <Text style={screenStyles.boldLabelValueText}>{total}</Text>
@@ -182,7 +182,7 @@ export const CartSummary = props => {
 
               <View style={screenStyles.bottomButtonContainer}>
                 <AppButton
-                  title={'Place Order'}
+                  title={'Đặt hàng'}
                   onPress={async () => {
                     await placeOder();
                   }}

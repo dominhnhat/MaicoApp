@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   Image,
   ScrollView,
@@ -12,27 +12,27 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {Text} from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import Routes from '../../navigation/Routes';
-import {Styles} from './Styles';
+import { Styles } from './Styles';
 import AppHeader from '../../components/Application/AppHeader/View';
-import {Counter} from '../../components/Global/Counter/View';
+import { Counter } from '../../components/Global/Counter/View';
 import StarRating from 'react-native-star-rating';
-import {FavouritesBottomSheet} from '../../components/Application/FavouritesBottomSheet/View';
+import { FavouritesBottomSheet } from '../../components/Application/FavouritesBottomSheet/View';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import ReadMore from '@fawazahmed/react-native-read-more';
 import AppButton from '../../components/Application/AppButton/View';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import IconNames from '../../../branding/carter/assets/IconNames';
-import {SvgIcon} from '../../components/Application/SvgIcon/View';
-import {FocusAwareStatusBar} from '../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
+import { SvgIcon } from '../../components/Application/SvgIcon/View';
+import { FocusAwareStatusBar } from '../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {addCartItem} from '../../services/cart_services';
+import { addCartItem } from '../../services/cart_services';
 import Toast from 'react-native-toast-message';
 export const ProductDetail = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const screenStyles = Styles(scheme, colors);
   const [cartItem, setCartItem] = useState({});
   const [profile, setProfile] = useState({});
@@ -45,7 +45,7 @@ export const ProductDetail = props => {
   let sheetRef = useRef();
 
   //Props
-  const {item} = props.route.params;
+  const { item } = props.route.params;
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -99,7 +99,7 @@ export const ProductDetail = props => {
 
       <View style={screenStyles.imageContainer}>
         <Image
-          source={{uri: item.bigImage}}
+          source={{ uri: item.bigImage }}
           resizeMode={'contain'}
           style={screenStyles.mainImage}
         />
@@ -109,7 +109,7 @@ export const ProductDetail = props => {
           transparentHeader
           headerWithBack
           darkIcons
-          title={' '}
+          title={'Chi Tiết Sản Phẩm'}
         />
       </View>
       <View style={screenStyles.bottomContainerMain}>
@@ -181,12 +181,12 @@ export const ProductDetail = props => {
 
         <View style={screenStyles.bottomContainerLower}>
           <View style={screenStyles.cartCounterContainer}>
-            <Text style={screenStyles.cartCounterText}>QUANTITY</Text>
+            <Text style={screenStyles.cartCounterText}>SỐ LƯỢNG</Text>
             <Counter setCount={setCount} />
           </View>
 
           <AppButton
-            title={'Add to Cart'}
+            title={'Thêm vào giỏ hàng'}
             onPress={() => {
               addItem();
             }}

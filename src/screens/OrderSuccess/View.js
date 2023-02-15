@@ -1,24 +1,24 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
 import BaseView from '../BaseView';
-import {Text} from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import Routes from '../../navigation/Routes';
 import AppButton from '../../components/Application/AppButton/View';
 import Config from '../../../branding/carter/configuration/Config';
-import {StackActions, useTheme} from '@react-navigation/native';
-import {Styles} from './Styles';
-import {SvgIcon} from '../../components/Application/SvgIcon/View';
+import { StackActions, useTheme } from '@react-navigation/native';
+import { Styles } from './Styles';
+import { SvgIcon } from '../../components/Application/SvgIcon/View';
 import IconNames from '../../../branding/carter/assets/IconNames';
 
 export const OrderSuccess = props => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const screenStyles = Styles(colors);
 
   return (
     <BaseView
       navigation={props.navigation}
-      title={'Order Success'}
+      title={'Đặt Hàng Thành Công'}
       headerWithBack
       applyBottomSafeArea
       childView={() => {
@@ -33,25 +33,25 @@ export const OrderSuccess = props => {
               />
 
               <Text style={screenStyles.titleText}>
-                Your Order was successful!
+                Đặt hàng thành công!
               </Text>
 
               <Text style={screenStyles.subtitleText}>
-                You'll get a response within a few minutes
+                Chúng tôi sẽ xử lí đơn hàng của bạn nhanh nhất có thể
               </Text>
             </View>
 
             <View style={screenStyles.bottomContainer}>
               <AppButton
-                title={'Go Back'}
+                title={'Về Trang Chủ'}
                 onPress={() => {
                   props.navigation.dispatch(
                     StackActions.replace(
                       Config.SELECTED_VARIANT === Routes.INTRO_SCREEN1
                         ? Routes.HOME_VARIANT1
                         : Config.SELECTED_VARIANT === Routes.INTRO_SCREEN2
-                        ? Routes.HOME_VARIANT2
-                        : Routes.HOME_VARIANT3,
+                          ? Routes.HOME_VARIANT2
+                          : Routes.HOME_VARIANT3,
                     ),
                   );
                 }}
