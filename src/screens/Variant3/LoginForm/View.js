@@ -29,24 +29,29 @@ export const Variant3LoginFormScreen = props => {
   const screenStyles = Styles(globalStyles, colors, lightColors);
   //Internal States
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [loading, setLoad] = useState(false);
   //References
   let inputRef = useRef();
   const Login = async () => {
-    if (phone && phone.length == 10) {
+    if (phone && phone.length == 10 && email && email.includes('@')) {
       setLoad(true);
       const users = await getUserByPhone(phone);
       if (users && users.length == 0) {
-        const newUser = await addUser({phone: phone});
+        const newUser = await addUser({phone: phone, email: email});
       }
       const formatPhone = '+84' + phone.replace('0', '');
-      await loginWithOtp(formatPhone);
+      await loginWithOtp(email);
       setLoad(false);
       props.navigation.dispatch(
         CommonActions.reset({
           index: 1,
           routes: [
-            {name: Routes.VERIFY_NUMBER_OTP_SCREEN, params: {phone: phone}},
+            {
+              name: Routes.VERIFY_NUMBER_OTP_SCREEN,
+              params: {phone: phone, email: email},
+            },
+            ,
           ],
         }),
       );
@@ -54,7 +59,7 @@ export const Variant3LoginFormScreen = props => {
       Toast.show({
         type: 'error',
         text1: 'Bạn vừa nhập',
-        text2: ' số điện thoại không hợp lệ',
+        text2: ' số điện thoại hoặc email không hợp lệ',
       });
     }
   };
@@ -102,6 +107,16 @@ export const Variant3LoginFormScreen = props => {
                 value={phone}
                 onChangeText={phone => {
                   setPhone(phone);
+                }}
+              />
+              <AppInput
+                {...globalStyles.secondaryInputStyle}
+                textInputRef={r => (inputRef = r)}
+                leftIcon={IconNames.Mailbox}
+                placeholder={'Email'}
+                value={email}
+                onChangeText={mail => {
+                  setEmail(mail);
                 }}
               />
 

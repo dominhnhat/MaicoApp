@@ -28,7 +28,7 @@ async function getUserByPhone(phone) {
 async function addUser(user) {
   const {data, error} = await supabase
     .from('user')
-    .insert([{phone: user.phone}]);
+    .insert([{phone: user.phone, email: user.email}]);
   if (error) {
     throw error;
   }
@@ -48,7 +48,7 @@ async function updateUser(user) {
 }
 async function loginWithOtp(phone) {
   let {user, error} = await supabase.auth.signInWithOtp({
-    phone: phone,
+    email: phone,
   });
   if (error) {
     throw error;
@@ -58,9 +58,9 @@ async function loginWithOtp(phone) {
 }
 async function verifyOtp(phone, otp) {
   let {session, error} = await supabase.auth.verifyOtp({
-    phone: phone,
+    email: phone,
     token: otp,
-    type: 'sms',
+    type: 'signup',
   });
   if (error) {
     throw error;
@@ -78,5 +78,5 @@ export {
   updateUser,
   loginWithOtp,
   verifyOtp,
-  getUserId
+  getUserId,
 };

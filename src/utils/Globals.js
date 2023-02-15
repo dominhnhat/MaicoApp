@@ -1323,7 +1323,7 @@ class Globals {
           navigation.dispatch(
             CommonActions.reset({
               index: 1,
-              routes: [{name: Config.SELECTED_VARIANT}],
+              routes: [{name: Routes.LOGIN_FORM_SCREEN3}],
             }),
           );
         }
