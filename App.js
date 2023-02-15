@@ -10,6 +10,8 @@ import Globals from './src/utils/Globals';
 import {useColorScheme} from 'react-native';
 import AppConfig from './branding/App_config';
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
+import CodePush from 'react-native-code-push';
+
 const lightColors = AppConfig.lightColors.default;
 const darkColors = AppConfig.darkColors.default;
 
@@ -23,7 +25,7 @@ const LightTheme = {
   colors: lightColors,
 };
 
-export const App = props => {
+const App = props => {
   const scheme = useColorScheme();
   const toastConfig = {
     /*
@@ -91,3 +93,12 @@ export const App = props => {
     </>
   );
 };
+
+
+let codePushOptions = {
+  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
+  installMode: CodePush.InstallMode.ON_NEXT_RESUME,
+};
+const HotPushApp = CodePush(codePushOptions)(App);
+
+export default HotPushApp;

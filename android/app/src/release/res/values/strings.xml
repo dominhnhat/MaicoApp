@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Maico</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">5JG2nkNlfLEr6emXXSaJIwWl5pk1e1LBw9CTY</string>
+</resources>

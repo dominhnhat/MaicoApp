@@ -1,4 +1,8 @@
 const fs = require('fs');
+const fixCollapsible = require('./node_modules_collapsible_fix');
+
+
+fixCollapsible();
 
 try {
   var curDir = __dirname;

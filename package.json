@@ -9,7 +9,10 @@
     "test": "jest",
     "lint": "eslint .",
     "bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-    "modulefix": "node ./android/fixAndroidAssemble/node_modules_collapsible_fix.js"
+    "release-build": "cd android && .\\gradlew assembleRelease && cd ..",
+    "staging-build": "cd android && .\\gradlew assembleStaging && cd ..",
+    "hotpush-staging": "appcenter codepush release-react -a minhnhatdo/test -d Staging",
+    "postinstall": "node ./android/fixAndroidAssemble/android-assemble-fix.js"
   },
   "dependencies": {
     "@fawazahmed/react-native-read-more": "2.3.6",
@@ -28,6 +31,7 @@
     "prop-types": "15.7.2",
     "react": "17.0.2",
     "react-native": "0.66.5",
+    "react-native-code-push": "^7.1.0",
     "react-native-collapsible": "1.5.2",
     "react-native-country-picker-modal": "2.0.0",
     "react-native-elements": "1.2.7",
