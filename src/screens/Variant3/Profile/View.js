@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -19,6 +19,7 @@ import {commonLightStyles} from '../../../../branding/carter/styles/light/Style'
 import {SvgIcon} from '../../../components/Application/SvgIcon/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 import Routes from '../../../navigation/Routes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
 
 const assets = AppConfig.assets.default;
@@ -34,11 +35,25 @@ export const Variant3Profile = props => {
   //Internal States
   const [profileImage, setProfileImage] = useState('');
 
+  const [userPhone, setUserPhone] = useState('');
+  const getProfile = async () => {
+    let userValue = await AsyncStorage.getItem('@user');
+    if (userValue) {
+      userValue = JSON.parse(userValue);
+      if (JSON.stringify(userPhone) !== JSON.stringify(userValue.phone)) {
+        setUserPhone(userValue.phone);
+      }
+    }
+  };
+  useEffect(() => {
+    getProfile();
+  }, [])
   const renderProfileCardItem = (item, index) => {
     return (
       <TouchableWithoutFeedback
         key={index}
         onPress={() => {
+          console.log('Press')
           item.onPress();
         }}>
         <View style={screenStyles.cardListingItemContainer}>
@@ -95,8 +110,8 @@ export const Variant3Profile = props => {
         </View>
 
         <View style={screenStyles.infoContainer}>
-          <Text style={screenStyles.nameText}>{'Jessica Simpson'}</Text>
-          <Text style={screenStyles.emailText}>{'gfx.partner@gmail.com'}</Text>
+          <Text style={screenStyles.nameText}>{'Khách hàng'}</Text>
+          <Text style={screenStyles.emailText}>{userPhone}</Text>
         </View>
       </View>
 

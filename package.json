@@ -32,6 +32,7 @@
     "react-native-country-picker-modal": "2.0.0",
     "react-native-elements": "1.2.7",
     "react-native-flip-card": "3.5.6",
+    "react-native-format-currency": "^0.0.3",
     "react-native-gesture-handler": "1.8.0",
     "react-native-image-picker": "4.0.6",
     "react-native-keyboard-aware-scrollview": "2.1.0",

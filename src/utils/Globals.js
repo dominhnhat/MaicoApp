@@ -1306,21 +1306,21 @@ class Globals {
       {
         id: 8,
         icon: IconNames.PowerOff,
-        title: 'Đăng xuất',
-        onPress: () =>
-          async () => {
-            try {
-              await AsyncStorage.removeItem('@user');
-            } catch (e) {
-              // remove error
-            }
-            navigation.dispatch(
-              CommonActions.reset({
-                index: 1,
-                routes: [{ name: Config.SELECTED_VARIANT }],
-              }),
-            );
+        title: 'Sign out',
+        onPress: async () => {
+          console.log('Sign out');
+          try {
+            await AsyncStorage.removeItem('@user');
+          } catch (e) {
+            console.log(e);
           }
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{ name: Routes.LOGIN_FORM_SCREEN3 }],
+            }),
+          );
+        }
       },
     ];
   };

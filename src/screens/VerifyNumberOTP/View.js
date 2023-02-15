@@ -13,7 +13,7 @@ import {
   verifyOtp,
   getUserByPhone,
   loginWithOtp,
-} from '../../services/user_services';
+} from '../../services/user-services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 export const VerifyPhoneOTP = props => {
@@ -27,7 +27,11 @@ export const VerifyPhoneOTP = props => {
   const Verify = async otp => {
     if (otp && otp.length == 6) {
       const formatPhone = '+84' + props.route.params.phone.replace('0', '');
-      const res = await verifyOtp(formatPhone, otp);
+      const res = await verifyOtp(
+        props.route.params.email,
+        otp,
+        props.route.params.isSignedUp,
+      );
       if (!res.error) {
         await getUser();
       }
@@ -116,9 +120,12 @@ export const VerifyPhoneOTP = props => {
           <Text
             style={screenStyles.resendText}
             onPress={async () => {
-              await loginWithOtp(
-                '+84' + props.route.params.phone.replace('0', ''),
-              );
+              Toast.show({
+                type: 'success',
+                text1: 'Thành công',
+                text2: 'Gửi lại mã',
+              });
+              await loginWithOtp(props.route.params.email);
             }}>
             {'Gửi mã OTP mới'}
           </Text>

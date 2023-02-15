@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useColorScheme, View, TouchableWithoutFeedback } from 'react-native';
+import { useColorScheme, View, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { Overlay, Text } from 'react-native-elements';
 
 import BaseView from '../BaseView';
@@ -95,6 +95,7 @@ export const AddAddress = props => {
   const apartmentSelectorOverlay = () => {
     return (
       <Overlay isVisible={isOverlayVisible}>
+
         <View
           style={{
             justifyContent: 'space-between', //Centered horizontally
@@ -111,16 +112,19 @@ export const AddAddress = props => {
             }}>
             Chọn chung cư bạn ở
           </Text>
-          <SvgIcon
-            style={{}}
-            color={'#000000'}
-            width={20}
-            height={20}
-            type={IconNames.Close}
-            onPress={() => {
-              setIsOverlayVisible(false);
-            }}
-          />
+          <TouchableHighlight onPress={() => {
+            setIsOverlayVisible(false);
+          }}>
+            <SvgIcon
+              style={{}}
+              color={'#000000'}
+              width={20}
+              height={20}
+              type={IconNames.Close}
+
+            />
+          </TouchableHighlight>
+
         </View>
 
         <View style={screenStyles.container}>
@@ -149,6 +153,7 @@ export const AddAddress = props => {
             />
           </View>
         </View>
+
       </Overlay>
     );
   };
@@ -171,7 +176,7 @@ export const AddAddress = props => {
               showsVerticalScrollIndicator={false}>
               <View>
                 <AppButton
-                  title={'Lala'}
+                  title={'Chọn chung cư'}
                   onPress={() => {
                     setIsOverlayVisible(true);
                   }}
@@ -207,9 +212,9 @@ export const AddAddress = props => {
                   leftIcon={IconNames.Apartment}
                   placeholder={'Chung cư'}
                   value={apartment}
-                  // onChangeText={apartment => {
-                  //   setApartment(apartment);
-                  // }}
+                  onChangeText={apartment => {
+                    setApartment(apartment);
+                  }}
                   onPressOut={() => {
                     setIsOverlayVisible(true);
                   }}

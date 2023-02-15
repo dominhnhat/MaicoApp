@@ -1,6 +1,10 @@
 import supabase from './supabase';
 import {Animated} from 'react-native';
-
+import {
+  formatCurrency,
+  getSupportedCurrencies,
+} from 'react-native-format-currency';
+import moment from 'moment';
 async function getAllOrderByUserId(id) {
   try {
     let {data, error} = await supabase
@@ -22,10 +26,10 @@ async function getAllOrderByUserId(id) {
         total: sumOrderValue(c.order_item),
         isOrderDelivered: c.status.name === 'Giao thành công' ? true : false,
         order_status_log: c.order_status_log,
-        spinValue: new Animated.Value(0)
+        spinValue: new Animated.Value(0),
       };
     });
-    console.log(result)
+    console.log(result);
     return result;
   } catch (error) {
     throw error;
@@ -65,15 +69,19 @@ async function addOrder(order) {
 }
 
 function dateTimeFormat(created_at) {
+  console.log(moment(created_at).format('DD-MM-YYYY'));
   //   return `Đơn đặt lúc ${created_at.getHours()}:${created_at.getMinutes()} ngày ${created_at.getDate()}/${created_at.getMonth()}/${created_at.getFullYear()}`;
-  return `Đơn đặt lúc nào đó`;
+  return moment(created_at).format('DD-MM-YYYY');
 }
 function sumOrderValue(orderItems) {
+  console.log(orderItems);
   let result = 0;
   orderItems.forEach(c => {
     result += c.price;
   });
-  return result;
+  const [valueFormattedWithSymbol, valueFormattedWithoutSymbol, symbol] =
+    formatCurrency({amount: Number(result), code: 'VND'});
+  return valueFormattedWithSymbol;
 }
 
 export {getAllOrderByUserId, getNextOrderId, addOrder};

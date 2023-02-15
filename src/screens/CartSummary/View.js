@@ -29,7 +29,7 @@ export const CartSummary = props => {
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
   const screenStyles = Styles(scheme, globalStyles, colors);
   const [cartItems, setCartItems] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState('');
   const [user, setUser] = useState({});
   const [orderId, setOrderId] = useState(0);
   const isForcused = useIsFocused();
@@ -51,11 +51,11 @@ export const CartSummary = props => {
     }
   };
   const getCartItem = async () => {
-    let queryData = await getCartItemForShow(user.id);
-    if (queryData) {
-      if (JSON.stringify(queryData) !== JSON.stringify(cartItems)) {
-        setCartItems(queryData);
-        await makeTotal(queryData);
+    let {data, total} = await getCartItemForShow(user.id);
+    if (data) {
+      if (JSON.stringify(data) !== JSON.stringify(cartItems)) {
+        setCartItems(data);
+        setTotal(total);
       }
     }
   };
@@ -104,7 +104,7 @@ export const CartSummary = props => {
           </Text>
         </View>
 
-        <Text style={screenStyles.cartItemPriceText}>{item.price}</Text>
+        <Text style={screenStyles.cartItemPriceText}>{item.priceString}</Text>
       </View>
     );
   };

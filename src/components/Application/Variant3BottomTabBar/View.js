@@ -44,15 +44,15 @@ export function Variant3BottomTabBar({state, descriptors, navigation}) {
             break;
 
           case 1:
-            icon = IconNames.Heart;
+            icon = IconNames.BoxOpen;
             break;
 
           case 2:
-            icon = IconNames.CircleUser;
+            icon = IconNames.BagShopping;
             break;
 
           case 3:
-            icon = IconNames.BagShopping;
+            icon = IconNames.CircleUser;
             break;
         }
 
