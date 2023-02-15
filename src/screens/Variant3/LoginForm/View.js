@@ -31,6 +31,7 @@ export const Variant3LoginFormScreen = props => {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoad] = useState(false);
+  const [isSignedUp, setIsSignedUp] = useState(true);
   //References
   let inputRef = useRef();
   const Login = async () => {
@@ -39,22 +40,28 @@ export const Variant3LoginFormScreen = props => {
       const users = await getUserByPhone(phone);
       if (users && users.length == 0) {
         const newUser = await addUser({phone: phone, email: email});
+        setIsSignedUp(false);
       }
       const formatPhone = '+84' + phone.replace('0', '');
       await loginWithOtp(email);
       setLoad(false);
-      props.navigation.dispatch(
-        CommonActions.reset({
-          index: 1,
-          routes: [
-            {
-              name: Routes.VERIFY_NUMBER_OTP_SCREEN,
-              params: {phone: phone, email: email},
-            },
-            ,
-          ],
-        }),
-      );
+      // props.navigation.dispatch(
+      //   CommonActions.reset({
+      //     index: 1,
+      //     routes: [
+      //       {
+      //         name: Routes.VERIFY_NUMBER_OTP_SCREEN,
+      //         params: {phone: phone, email: email, isSignedUp: isSignedUp},
+      //       },
+      //       ,
+      //     ],
+      //   }),
+      // );
+      props.navigation.navigate(Routes.VERIFY_NUMBER_OTP_SCREEN, {
+        phone: phone,
+        email: email,
+        isSignedUp: isSignedUp,
+      });
     } else {
       Toast.show({
         type: 'error',

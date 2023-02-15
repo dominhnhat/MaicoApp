@@ -46,9 +46,9 @@ async function updateUser(user) {
     })
     .eq('id', user.id);
 }
-async function loginWithOtp(phone) {
+async function loginWithOtp(mail) {
   let {user, error} = await supabase.auth.signInWithOtp({
-    email: phone,
+    email: mail,
   });
   if (error) {
     throw error;
@@ -56,11 +56,11 @@ async function loginWithOtp(phone) {
   const result = {data: user, error: error};
   return result;
 }
-async function verifyOtp(phone, otp) {
+async function verifyOtp(phone, otp, isSignedUp) {
   let {session, error} = await supabase.auth.verifyOtp({
     email: phone,
     token: otp,
-    type: 'signup',
+    type: isSignedUp ? 'magiclink' : 'signup',
   });
   if (error) {
     throw error;

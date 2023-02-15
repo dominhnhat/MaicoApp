@@ -14,6 +14,7 @@ import {commonDarkStyles} from '../../../../branding/carter/styles/dark/Style';
 import {commonLightStyles} from '../../../../branding/carter/styles/light/Style';
 import {SvgIcon} from '../SvgIcon/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
+import Routes from '../../../navigation/Routes';
 
 const PropTypes = require('prop-types');
 
@@ -73,7 +74,11 @@ const AppHeader = props => {
         headerWithBack && (
           <TouchableWithoutFeedback
             onPress={() => {
-              navigation.goBack();
+              try {
+                navigation.goBack();
+              } catch (e) {
+                navigation.navigate(Routes.LOGIN_FORM_SCREEN3);
+              }
             }}>
             <View style={headerIconContainerStyle}>
               <SvgIcon
