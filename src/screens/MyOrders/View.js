@@ -53,9 +53,13 @@ export const MyOrders = props => {
     });
   }, []);
   useEffect(() => {
-    getAllOrderByUserId(userId).then(b => {
-      setOrderItems(b);
-    });
+    console.log({userId: userId});
+    if (userId !== 0) {
+      getAllOrderByUserId(userId).then(b => {
+        setOrderItems(b);
+      });
+    }
+    
   }, [userId]);
   const getProfile = async () => {
     let userValue = await AsyncStorage.getItem('@user');
