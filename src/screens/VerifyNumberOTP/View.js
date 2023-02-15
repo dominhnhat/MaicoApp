@@ -27,7 +27,11 @@ export const VerifyPhoneOTP = props => {
   const Verify = async otp => {
     if (otp && otp.length == 6) {
       const formatPhone = '+84' + props.route.params.phone.replace('0', '');
-      const res = await verifyOtp(props.route.params.email, otp);
+      const res = await verifyOtp(
+        props.route.params.email,
+        otp,
+        props.route.params.isSignedUp,
+      );
       if (!res.error) {
         await getUser();
       }
@@ -119,7 +123,7 @@ export const VerifyPhoneOTP = props => {
             onPress={async () => {
               Toast.show({
                 type: 'success',
-                text1: 'Thành công',  
+                text1: 'Thành công',
                 text2: 'Gửi lại mã',
               });
               await loginWithOtp(props.route.params.email);
