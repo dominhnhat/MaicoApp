@@ -183,12 +183,9 @@ export const AddAddress = props => {
               contentContainerStyle={screenStyles.parentContainer}
               showsVerticalScrollIndicator={false}>
               <View>
-                <AppButton
-                  title={'Chọn chung cư'}
-                  onPress={() => {
-                    setIsOverlayVisible(true);
-                  }}
-                />
+                <Text style={screenStyles.sectionHeadingText}>
+                  Thông tin liên lạc
+                </Text>
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}
@@ -213,6 +210,20 @@ export const AddAddress = props => {
                   }}
                 />
 
+                <Text style={screenStyles.sectionHeadingText2}>
+                  Vị trí
+                </Text>
+                <AppButton
+                  buttonStyle={screenStyles.outlineButton}
+                  titleStyle={{
+                    color: "#FF385D",
+                  }}
+                  primaryShadowStart={"#ffffff00"}
+                  title={'Chọn chung cư'}
+                  onPress={() => {
+                    setIsOverlayVisible(true);
+                  }}
+                />
                 <AppInput
                   textInputRef={r => (inputRef = r)}
                   {...globalStyles.secondaryInputStyle}

@@ -14,6 +14,21 @@ export const Styles = function (colors) {
       flex: 1,
     },
 
+    sectionHeadingText: {
+      marginBottom: hp(1),
+      fontFamily: Fonts.RUBIK_MEDIUM,
+      fontSize: Typography.P2,
+      color: colors.headingColor,
+    },
+
+    sectionHeadingText2: {
+      marginTop: hp(3),
+      marginBottom: hp(1),
+      fontFamily: Fonts.RUBIK_MEDIUM,
+      fontSize: Typography.P2,
+      color: colors.headingColor,
+    },
+
     parentContainer: {
       flex: 0.9,
       marginTop: hp(3),
@@ -52,6 +67,10 @@ export const Styles = function (colors) {
       marginTop: hp('1'),
       marginBottom: hp('1.5'),
       color: colors.headingColor,
+    },
+
+    outlineButton: {
+      backgroundColor: '#ffdee4',
     },
 
     deliveryDescription: {

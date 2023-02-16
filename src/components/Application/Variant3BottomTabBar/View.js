@@ -1,18 +1,18 @@
 import React from 'react';
-import {TouchableOpacity, useColorScheme, View} from 'react-native';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {Styles} from './Style';
+import { TouchableOpacity, useColorScheme, View } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Styles } from './Style';
 import Globals from '../../../utils/Globals';
-import {useTheme} from '@react-navigation/native';
-import {commonDarkStyles} from '../../../../branding/carter/styles/dark/Style';
-import {commonLightStyles} from '../../../../branding/carter/styles/light/Style';
-import {SvgIcon} from '../SvgIcon/View';
+import { useTheme } from '@react-navigation/native';
+import { commonDarkStyles } from '../../../../branding/carter/styles/dark/Style';
+import { commonLightStyles } from '../../../../branding/carter/styles/light/Style';
+import { SvgIcon } from '../SvgIcon/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 
-export function Variant3BottomTabBar({state, descriptors, navigation}) {
+export function Variant3BottomTabBar({ state, descriptors, navigation }) {
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const globalStyles =
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
   const screenStyles = Styles(globalStyles, scheme, colors);
@@ -20,7 +20,7 @@ export function Variant3BottomTabBar({state, descriptors, navigation}) {
   return (
     <View style={screenStyles.container}>
       {state.routes.map((route, index) => {
-        const {options} = descriptors[route.key];
+        const { options } = descriptors[route.key];
 
         const isFocused = state.index === index;
 
@@ -63,7 +63,7 @@ export function Variant3BottomTabBar({state, descriptors, navigation}) {
             onPress={onPress}
             style={[
               screenStyles.bottomTabContainer,
-              {marginBottom: Globals.SAFE_AREA_INSET.bottom / 2},
+              { marginBottom: Globals.SAFE_AREA_INSET.bottom / 2 },
             ]}>
             {/*isFocused is selected*/}
 
@@ -80,7 +80,7 @@ export function Variant3BottomTabBar({state, descriptors, navigation}) {
                 width={25}
                 height={25}
                 color={
-                  isFocused ? colors.activeColor : colors.primaryBackground
+                  isFocused ? colors.primaryBackground : colors.activeColor
                 }
               />
             </View>
