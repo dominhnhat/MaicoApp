@@ -60,7 +60,7 @@ async function verifyOtp(phone, otp, isSignedUp) {
   let {session, error} = await supabase.auth.verifyOtp({
     email: phone,
     token: otp,
-    type: isSignedUp ? 'magiclink' : 'signup',
+    type: isSignedUp ? 'signup' : 'magiclink',
   });
   if (error) {
     throw error;

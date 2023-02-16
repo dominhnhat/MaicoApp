@@ -1,16 +1,16 @@
-import React, {useRef, useState} from 'react';
-import {ImageBackground, View} from 'react-native';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {Text} from 'react-native-elements';
+import React, { useRef, useState } from 'react';
+import { ImageBackground, View } from 'react-native';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Text } from 'react-native-elements';
 import Routes from '../../../navigation/Routes';
-import {StackActions} from '@react-navigation/native';
-import {Styles} from './Style';
+import { StackActions } from '@react-navigation/native';
+import { Styles } from './Style';
 import Globals from '../../../utils/Globals';
 import AppButton from '../../../components/Application/AppButton/View';
-import {commonLightStyles} from '../../../../branding/carter/styles/light/Style';
+import { commonLightStyles } from '../../../../branding/carter/styles/light/Style';
 import AppConfig from '../../../../branding/App_config';
-import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
+import { FocusAwareStatusBar } from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const colors = AppConfig.lightColors.default;
 
@@ -25,7 +25,7 @@ export const Variant3Intro = props => {
   //References
   let _carouselRef = useRef();
 
-  const _renderItem = ({item, index}) => {
+  const _renderItem = ({ item, index }) => {
     return (
       <ImageBackground
         source={item.headerImg}
@@ -72,7 +72,7 @@ export const Variant3Intro = props => {
 
       <View style={screenStyles.introLowerContainer}>
         <AppButton
-          title={activeSlideIndex === 0 ? 'Get started' : 'Skip'}
+          title={'Trải nghiệm ngay'}
           onPress={async () => {
             await AsyncStorage.setItem('@firstLoad', '1');
             props.navigation.dispatch(

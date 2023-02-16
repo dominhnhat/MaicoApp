@@ -25,7 +25,7 @@ export const Styles = function (colors) {
     titleText: {
       fontFamily: fonts.RUBIK_MEDIUM,
       color: colors.headingColor,
-      fontSize: Typography.H8,
+      fontSize: Typography.H7,
       textAlign: 'center',
       marginTop: hp('3'),
     },

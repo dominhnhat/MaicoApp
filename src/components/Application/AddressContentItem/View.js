@@ -1,14 +1,14 @@
-import React, {useRef, useState} from 'react';
-import {useColorScheme, View} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { useColorScheme, View } from 'react-native';
 
-import {Text} from 'react-native-elements';
-import {Styles} from './Style';
-import {useTheme} from '@react-navigation/native';
+import { Text } from 'react-native-elements';
+import { Styles } from './Style';
+import { useTheme } from '@react-navigation/native';
 import AppInput from '../AppInput/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
-import {CustomSwitch} from '../../Global/CustomSwitch/View';
+import { CustomSwitch } from '../../Global/CustomSwitch/View';
 import AppButton from '../AppButton/View';
-import {updateAddress} from '../../../services/user-address-services';
+import { updateAddress } from '../../../services/user-address-services';
 
 export const AddressContentItem = props => {
   //References
@@ -16,7 +16,7 @@ export const AddressContentItem = props => {
 
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const itemStyles = Styles(scheme, colors);
 
   //Internal states
@@ -36,7 +36,7 @@ export const AddressContentItem = props => {
       <AppInput
         textInputRef={r => (inputRef = r)}
         leftIcon={IconNames.CircleUser}
-        placeholder={'Name'}
+        placeholder={'Người nhận'}
         value={name}
         onChangeText={name => {
           setName(name);
@@ -45,7 +45,7 @@ export const AddressContentItem = props => {
       <AppInput
         textInputRef={r => (inputRef = r)}
         leftIcon={IconNames.PhoneFlip}
-        placeholder={'Phone'}
+        placeholder={'Số điện thoại'}
         value={phone}
         onChangeText={phone => {
           setPhone(phone);
@@ -54,8 +54,8 @@ export const AddressContentItem = props => {
 
       <AppInput
         textInputRef={r => (inputRef = r)}
-        leftIcon={IconNames.MapMarkerAlt}
-        placeholder={'Street'}
+        leftIcon={IconNames.Road}
+        placeholder={'Đường'}
         value={street}
         onChangeText={street => {
           setStreet(street);
@@ -64,7 +64,7 @@ export const AddressContentItem = props => {
       <AppInput
         textInputRef={r => (inputRef = r)}
         leftIcon={IconNames.MapMarkerAlt}
-        placeholder={'Ward'}
+        placeholder={'Phường'}
         value={ward}
         onChangeText={ward => {
           setWard(ward);
@@ -73,7 +73,7 @@ export const AddressContentItem = props => {
       <AppInput
         textInputRef={r => (inputRef = r)}
         leftIcon={IconNames.MapMarkerAlt}
-        placeholder={'District'}
+        placeholder={'Quận'}
         value={district}
         onChangeText={district => {
           setDistrict(district);
@@ -82,7 +82,7 @@ export const AddressContentItem = props => {
       <AppInput
         textInputRef={r => (inputRef = r)}
         leftIcon={IconNames.MapMarkerAlt}
-        placeholder={'City'}
+        placeholder={'Thành phố'}
         value={city}
         onChangeText={city => {
           setCity(city);
@@ -91,8 +91,8 @@ export const AddressContentItem = props => {
 
       <AppInput
         textInputRef={r => (inputRef = r)}
-        leftIcon={IconNames.Globe}
-        placeholder={'Apartment'}
+        leftIcon={IconNames.Apartment}
+        placeholder={'Chung cư'}
         value={apartment}
         onChangeText={apartment => {
           setApartment(apartment);
@@ -100,8 +100,8 @@ export const AddressContentItem = props => {
       />
       <AppInput
         textInputRef={r => (inputRef = r)}
-        leftIcon={IconNames.Globe}
-        placeholder={'Apartment Number'}
+        leftIcon={IconNames.ApartmentNumber}
+        placeholder={'Mã căn'}
         value={apartmentNumber}
         onChangeText={apartmentNumber => {
           setApartmentNumber(apartmentNumber);
@@ -109,13 +109,13 @@ export const AddressContentItem = props => {
       />
 
       <View style={itemStyles.defaultContainer}>
-        <CustomSwitch initialValue={false} onValueChange={value => {}} />
+        <CustomSwitch initialValue={false} onValueChange={value => { }} />
 
-        <Text style={itemStyles.defaultText}>{'Make Default'}</Text>
+        <Text style={itemStyles.defaultText}>{'Đặt làm địa chỉ mặc định'}</Text>
       </View>
-      <View style={[itemStyles.bottomContainer, {marginTop:10}]}>
+      <View style={[itemStyles.bottomContainer, { marginTop: 10 }]}>
         <AppButton
-          title={'Save Settings'}
+          title={'Lưu'}
           onPress={async () => {
             await updateAddress({
               receiver: name,
@@ -123,8 +123,8 @@ export const AddressContentItem = props => {
               street,
               ward,
               district,
-              apartment_number:  apartmentNumber,
-              apartment_name:  apartment,
+              apartment_number: apartmentNumber,
+              apartment_name: apartment,
               contact: phone,
               id: props.data.id
             });

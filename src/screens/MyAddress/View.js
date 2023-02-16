@@ -1,23 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import {ScrollView, useColorScheme, View, Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, useColorScheme, View, Text } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 import BaseView from '../BaseView';
 import Routes from '../../navigation/Routes';
 import Globals from '../../utils/Globals';
-import {AddressItem} from '../../components/Application/AddressItem/View';
+import { AddressItem } from '../../components/Application/AddressItem/View';
 import AppButton from '../../components/Application/AppButton/View';
-import {Styles} from './Styles';
-import {useTheme} from '@react-navigation/native';
+import { Styles } from './Styles';
+import { useTheme } from '@react-navigation/native';
 import IconNames from '../../../branding/carter/assets/IconNames';
-import {AddressContentItem} from '../../components/Application/AddressContentItem/View';
-import {getAddressesByUserId} from '../../services/user-address-services';
+import { AddressContentItem } from '../../components/Application/AddressContentItem/View';
+import { getAddressesByUserId } from '../../services/user-address-services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getUserId} from '../../services/user-services';
+import { getUserId } from '../../services/user-services';
 
 export const MyAddress = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const screenStyles = Styles(scheme, colors);
 
   //Internal states
@@ -92,7 +92,7 @@ export const MyAddress = props => {
   return (
     <BaseView
       navigation={props.navigation}
-      title={'My Address'}
+      title={'Tất Cả Địa Chỉ'}
       rightIcon={IconNames.PlusCircle}
       onRightIconPress={() => {
         props.navigation.navigate(Routes.Add_Address);

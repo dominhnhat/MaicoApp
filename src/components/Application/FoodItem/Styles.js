@@ -106,7 +106,7 @@ export const Styles = function (scheme, colors) {
     addCartText: {
       color: colors.subHeadingColor,
       fontFamily: Fonts.RUBIK_REGULAR,
-      fontSize: Typography.P4,
+      fontSize: Typography.P5,
       lineHeight: hp('2.8'),
     },
 

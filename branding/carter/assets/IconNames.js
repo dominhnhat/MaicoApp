@@ -45,6 +45,9 @@ class IconNames {
   static Mailbox = 'mailbox';
   static Map = 'map';
   static Globe = 'globe';
+  static ApartmentNumber = 'apartment-number';
+  static Apartment = 'apartment';
+  static Road = 'road';
   static Paypal = 'paypal';
   static CCMasterCard = 'cc-mastercard';
   static CCVisa = 'cc-visa';

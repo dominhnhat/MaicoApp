@@ -1,7 +1,7 @@
 import React from 'react';
-import {FlatList, View} from 'react-native';
+import { FlatList, View } from 'react-native';
 
-import {FoodItem} from '../../components/Application/FoodItem/View';
+import { FoodItem } from '../../components/Application/FoodItem/View';
 import BaseView from '../BaseView';
 import Globals from '../../utils/Globals';
 import style from './Style';
@@ -10,7 +10,7 @@ export const PopularDeals = props => {
   return (
     <BaseView
       navigation={props.navigation}
-      title={'Popular Deals'}
+      title={'Tất cả sản phẩm'}
       headerWithBack
       applyBottomSafeArea
       childView={() => {
@@ -19,7 +19,7 @@ export const PopularDeals = props => {
             showsVerticalScrollIndicator={false}
             data={props.route.params.items}
             numColumns={2}
-            renderItem={({item, index}) => {
+            renderItem={({ item, index }) => {
               if (index === 0 || index === 1) {
                 return (
                   <View style={style.foodFirstItem}>
@@ -34,8 +34,8 @@ export const PopularDeals = props => {
                       isFavourite={item.isFavourite}
                       detail={item.detail}
                       ratingValue={item.ratingValue}
-                      cartCountChange={count => {}}
-                      favouriteChange={favourite => {}}
+                      cartCountChange={count => { }}
+                      favouriteChange={favourite => { }}
                       navigation={props.navigation}
                     />
                   </View>
@@ -54,8 +54,8 @@ export const PopularDeals = props => {
                       isFavourite={item.isFavourite}
                       detail={item.detail}
                       ratingValue={item.ratingValue}
-                      cartCountChange={count => {}}
-                      favouriteChange={favourite => {}}
+                      cartCountChange={count => { }}
+                      favouriteChange={favourite => { }}
                       navigation={props.navigation}
                     />
                   </View>
@@ -73,8 +73,8 @@ export const PopularDeals = props => {
                     isFavourite={item.isFavourite}
                     detail={item.detail}
                     ratingValue={item.ratingValue}
-                    cartCountChange={count => {}}
-                    favouriteChange={favourite => {}}
+                    cartCountChange={count => { }}
+                    favouriteChange={favourite => { }}
                     navigation={props.navigation}
                   />
                 );

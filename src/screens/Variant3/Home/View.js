@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -7,28 +7,28 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import Carousel, {Pagination} from 'react-native-snap-carousel';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
-import {FoodItem} from '../../../components/Application/FoodItem/View';
-import {SearchButton} from '../../../components/Application/SearchButton/View';
+import { FoodItem } from '../../../components/Application/FoodItem/View';
+import { SearchButton } from '../../../components/Application/SearchButton/View';
 
-import {Styles} from './Styles';
+import { Styles } from './Styles';
 import Routes from '../../../navigation/Routes';
 import Globals from '../../../utils/Globals';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {FavouritesBottomSheet} from '../../../components/Application/FavouritesBottomSheet/View';
-import {CategoryItem} from '../../../components/Application/CategoryItem/View';
-import {useTheme} from '@react-navigation/native';
-import {commonDarkStyles} from '../../../../branding/carter/styles/dark/Style';
-import {commonLightStyles} from '../../../../branding/carter/styles/light/Style';
-import {SvgIcon} from '../../../components/Application/SvgIcon/View';
+import { FavouritesBottomSheet } from '../../../components/Application/FavouritesBottomSheet/View';
+import { CategoryItem } from '../../../components/Application/CategoryItem/View';
+import { useTheme } from '@react-navigation/native';
+import { commonDarkStyles } from '../../../../branding/carter/styles/dark/Style';
+import { commonLightStyles } from '../../../../branding/carter/styles/light/Style';
+import { SvgIcon } from '../../../components/Application/SvgIcon/View';
 import IconNames from '../../../../branding/carter/assets/IconNames';
-import {FocusAwareStatusBar} from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
-import {getAllCategory} from '../../../services/category-services';
-import {getAllProduct} from '../../../services/product-services';
-import {CategoryItems} from '../../CategoryItems/View';
+import { FocusAwareStatusBar } from '../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
+import { getAllCategory } from '../../../services/category-services';
+import { getAllProduct } from '../../../services/product-services';
+import { CategoryItems } from '../../CategoryItems/View';
 import {
   formatCurrency,
   getSupportedCurrencies,
@@ -38,18 +38,18 @@ const slider_data = [
   {
     img: require('./Assets/Images/slider_img_1.png'),
   },
-  {
-    img: require('./Assets/Images/slider_img_2.png'),
-  },
-  {
-    img: require('./Assets/Images/slider_img_3.png'),
-  },
+  // {
+  //   img: require('./Assets/Images/slider_img_2.png'),
+  // },
+  // {
+  //   img: require('./Assets/Images/slider_img_3.png'),
+  // },
 ];
 
 export const Variant3Home = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const globalStyles =
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
   const screenStyles = Styles(globalStyles, scheme, colors);
@@ -84,7 +84,7 @@ export const Variant3Home = props => {
         <Carousel
           ref={_carousel}
           data={slider_data}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
@@ -132,7 +132,7 @@ export const Variant3Home = props => {
       <View
         style={[
           screenStyles.mainContainer,
-          {marginTop: Globals.SAFE_AREA_INSET.top},
+          { marginTop: Globals.SAFE_AREA_INSET.top },
         ]}>
         {/* <SearchButton
           onPress={() => props.navigation.navigate(Routes.SEARCH)}
@@ -231,7 +231,7 @@ export const Variant3Home = props => {
                   }}>
                   <View style={screenStyles.sectionHeading}>
                     <Text style={screenStyles.sectionHeadingText}>
-                      Categories
+                      Danh mục
                     </Text>
                     <SvgIcon
                       type={IconNames.ArrowRight}
@@ -249,7 +249,7 @@ export const Variant3Home = props => {
                   keyExtractor={(item, index) => {
                     return item.id;
                   }}
-                  renderItem={({item}) => (
+                  renderItem={({ item }) => (
                     <CategoryItem
                       navigation={props.navigation}
                       categoryId={item.id}
@@ -277,7 +277,7 @@ export const Variant3Home = props => {
                   }}>
                   <View style={screenStyles.sectionHeading}>
                     <Text style={screenStyles.sectionHeadingText}>
-                      Popular Deals
+                      Tất cả sản phẩm
                     </Text>
 
                     <SvgIcon
@@ -291,7 +291,7 @@ export const Variant3Home = props => {
               </>
             );
           }}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <FoodItem
               id={item.id}
               title={item.title}
@@ -304,7 +304,7 @@ export const Variant3Home = props => {
               isFavourite={item.isFavourite}
               detail={item.detail}
               ratingValue={item.ratingValue}
-              cartCountChange={count => {}}
+              cartCountChange={count => { }}
               favouriteChange={favourite => {
                 if (favourite) {
                   _favouriteSheet.open();

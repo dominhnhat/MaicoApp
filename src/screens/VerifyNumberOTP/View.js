@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {Keyboard, useColorScheme, View} from 'react-native';
-import {Text} from 'react-native-elements';
-import {Styles} from './Style';
+import React, { useEffect, useState } from 'react';
+import { Keyboard, useColorScheme, View } from 'react-native';
+import { Text } from 'react-native-elements';
+import { Styles } from './Style';
 import AppHeader from '../../components/Application/AppHeader/View';
-import {StackActions, useTheme} from '@react-navigation/native';
-import {commonDarkStyles} from '../../../branding/carter/styles/dark/Style';
-import {commonLightStyles} from '../../../branding/carter/styles/light/Style';
+import { StackActions, useTheme } from '@react-navigation/native';
+import { commonDarkStyles } from '../../../branding/carter/styles/dark/Style';
+import { commonLightStyles } from '../../../branding/carter/styles/light/Style';
 import OtpInputs from 'react-native-otp-inputs';
-import {FocusAwareStatusBar} from '../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
+import { FocusAwareStatusBar } from '../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar';
 import Routes from '../../navigation/Routes';
 import {
   verifyOtp,
@@ -20,7 +20,7 @@ export const VerifyPhoneOTP = props => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const globalStyles =
     scheme === 'dark' ? commonDarkStyles(colors) : commonLightStyles(colors);
   const screenStyles = Styles(globalStyles, colors);
@@ -88,14 +88,13 @@ export const VerifyPhoneOTP = props => {
         isTranslucent
         darkIcons
         headerWithBack
-        title={'Verify Number'}
+        title={'Xác Thực Tài Khoản'}
       />
 
       <View style={screenStyles.mainContainer}>
-        <Text style={screenStyles.titleText}>{'Verify your Number'}</Text>
-
+        <Text style={screenStyles.titleText}>{'Xác thực tài khoản của bạn'}</Text>
         <Text style={screenStyles.subtitleText}>
-          {'Enter your OTP code below.'}
+          {'Nhập mã OTP được gửi về email'}
         </Text>
 
         <View style={screenStyles.otpInputMainContainer}>
@@ -116,7 +115,7 @@ export const VerifyPhoneOTP = props => {
         {/*<ScrollView contentContainerStyle={{flexGrow: 1, justifyContent: "flex-end", bottom: keyboardHeight}}>*/}
         <View style={screenStyles.didntReceivedContainer}>
           <Text style={screenStyles.didntReceivedText}>
-            {"Didn't receive the code?"}
+            {"Không nhận được mã OTP?"}
           </Text>
           <Text
             style={screenStyles.resendText}
@@ -128,7 +127,7 @@ export const VerifyPhoneOTP = props => {
               });
               await loginWithOtp(props.route.params.email);
             }}>
-            {'Resend a new Code.'}
+            {'Gửi mã OTP mới'}
           </Text>
         </View>
         {/*</ScrollView>*/}

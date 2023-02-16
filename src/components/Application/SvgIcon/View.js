@@ -70,16 +70,27 @@ import {
   Turkey,
   UserAlt,
   Wallet,
-  Close
+  Close,
+  ApartmentNumber,
+  Apartment,
+  Road,
 } from '../../../../branding/carter/assets/Icons';
 import IconNames from '../../../../branding/carter/assets/IconNames';
 
 const PropTypes = require('prop-types');
 
 export const SvgIcon = props => {
-  const {type, color, width, height, style} = props;
-
-  if (type === IconNames.Close) {
+  const { type, color, width, height, style } = props;
+  if (type === IconNames.ApartmentNumber) {
+    return <ApartmentNumber style={[style]} width={width} height={height} fill={color} />;
+  }
+  else if (type === IconNames.Road) {
+    return <Road style={[style]} width={width} height={height} fill={color} />;
+  }
+  else if (type === IconNames.Apartment) {
+    return <Apartment style={[style]} width={width} height={height} fill={color} />;
+  }
+  else if (type === IconNames.Close) {
     return <Close style={[style]} width={width} height={height} fill={color} />;
   }
   if (type === IconNames.Google) {

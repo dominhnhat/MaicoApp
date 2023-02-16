@@ -1,22 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import {FlatList, View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, View } from 'react-native';
 
 import BaseView from '../BaseView';
 import Routes from '../../navigation/Routes';
 import Globals from '../../utils/Globals';
-import {AddressItem} from '../../components/Application/AddressItem/View';
+import { AddressItem } from '../../components/Application/AddressItem/View';
 import AppButton from '../../components/Application/AppButton/View';
-import {AddressContentItem} from '../../components/Application/AddressContentItem/View';
-import {getAddressesByUserId} from '../../services/user-address-services';
+import { AddressContentItem } from '../../components/Application/AddressContentItem/View';
+import { getAddressesByUserId } from '../../services/user-address-services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
-import {useIsFocused} from '@react-navigation/native';
-import {useTheme} from '@react-navigation/native';
-import {Styles} from './Styles';
+import { useIsFocused } from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
+import { Styles } from './Styles';
 
 export const CheckoutAddress = props => {
   //Theme based styling and colors
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const screenStyles = Styles(colors);
   const [addresses, setAddresses] = useState([]);
   const [activeAddress, setActiveAddress] = useState({});
@@ -31,7 +31,7 @@ export const CheckoutAddress = props => {
         });
       });
     }
-  },[profile]);
+  }, [profile]);
 
   const getProfile = async () => {
     let jsonValue = await AsyncStorage.getItem('@user');
@@ -61,7 +61,7 @@ export const CheckoutAddress = props => {
   };
   const Checkout = () => {
     if (activeAddress && activeAddress?.id) {
-      props.navigation.navigate(Routes.CART_SUMMARY, {address: activeAddress});
+      props.navigation.navigate(Routes.CART_SUMMARY, { address: activeAddress });
     } else {
       Toast.show({
         type: 'error',
@@ -73,7 +73,7 @@ export const CheckoutAddress = props => {
   return (
     <BaseView
       navigation={props.navigation}
-      title={'Select Address'}
+      title={'Chọn Địa Chỉ'}
       headerWithBack
       applyBottomSafeArea
       childView={() => {
@@ -83,7 +83,7 @@ export const CheckoutAddress = props => {
               showsVerticalScrollIndicator={false}
               style={screenStyles.listContainer}
               data={addresses}
-              renderItem={({item, index}) => {
+              renderItem={({ item, index }) => {
                 if (index === 0) {
                   return (
                     <View style={screenStyles.addressFirstItem}>
@@ -127,7 +127,7 @@ export const CheckoutAddress = props => {
 
             <View style={screenStyles.bottomContainer}>
               <AppButton
-                title={'Next'}
+                title={'Tiếp tục'}
                 onPress={() => {
                   Checkout();
                 }}

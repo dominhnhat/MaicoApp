@@ -1,23 +1,23 @@
-import React, {useRef, useState} from 'react';
-import {Image, ScrollView, useColorScheme, View} from 'react-native';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {Styles} from './Styles';
+import React, { useRef, useState } from 'react';
+import { Image, ScrollView, useColorScheme, View } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Styles } from './Styles';
 import Globals from '../../utils/Globals';
-import {Text} from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import BaseView from '../BaseView';
 import Accordion from 'react-native-collapsible/Accordion';
-import {FavouritesBottomSheet} from '../../components/Application/FavouritesBottomSheet/View';
+import { FavouritesBottomSheet } from '../../components/Application/FavouritesBottomSheet/View';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {FavouriteItem} from '../../components/Application/FavouriteItem/View';
+import { FavouriteItem } from '../../components/Application/FavouriteItem/View';
 import AppButton from '../../components/Application/AppButton/View';
 import Routes from '../../navigation/Routes';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import IconNames from '../../../branding/carter/assets/IconNames';
 
 export const Favourites = props => {
   //Theme based styling and colors
   const scheme = useColorScheme();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const screenStyles = Styles(scheme, colors);
 
   //Constants
@@ -86,7 +86,7 @@ export const Favourites = props => {
         style={[
           screenStyles.contentContainerParent,
           index === Globals.favouriteItems.length - 1 &&
-            screenStyles.favouriteLastItemContainer,
+          screenStyles.favouriteLastItemContainer,
         ]}>
         {section.items.map((item, index) => {
           return (
